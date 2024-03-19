@@ -1,0 +1,396 @@
+
+/////////////// Table 
+
+ModelPath: Models/Dungeon/Table.obj
+ModelPosition: 2.9 0 7.3
+angle: 0
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+
+ModelPath: Models/Dungeon/TableOne.obj
+ModelPosition: 2.9 0 10.3
+angle: 180
+ModelRotation: 0 1 0 90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+
+/////////////// Floor
+
+ModelPath: Models/Dungeon/WoodFloor.obj
+ModelPosition: 8.0 2.0 3.0
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+
+ModelPath: Models/Dungeon/FloorDeco.obj
+ModelPosition: 6.0 0.0 13.0
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/FloorDeco.obj
+ModelPosition: 1.0 0.0 0.0
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/FloorDeco.obj
+ModelPosition: 0.0 2.0 1.0
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+
+/////////////// Key Table
+
+
+ModelPath: Models/Dungeon/KeyTable.obj
+ModelPosition: 6.9 0.0 6.3
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// Barrel
+
+
+ModelPath: Models/Dungeon/Barrel.obj
+ModelPosition: 2.0 2.0 2.0
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// Stairs
+
+
+ModelPath: Models/Dungeon/Stairs.obj
+ModelPosition: 9.0 0.0 5.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// BoxStack
+
+
+ModelPath: Models/Dungeon/BoxStack.obj
+ModelPosition: 2.7 0.0 4.2
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// Torch
+
+
+ModelPath: Models/Dungeon/Torch.obj
+ModelPosition: 4.1 1.5 3.2
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/Torch.obj
+ModelPosition: 1.2 1.7 7.5
+angle: 90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// ShieldSword
+
+
+ModelPath: Models/Dungeon/ShieldSword.obj
+ModelPosition: 2.9 0.4 8.3
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// BarrierCorner
+
+
+ModelPath: Models/Dungeon/BarrierCorner.obj
+ModelPosition: 7.0 2.0 3.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+
+ModelPath: Models/Dungeon/BarrierCorner.obj
+ModelPosition: 1.0 2.0 3.0
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// BarrierColumn
+
+
+ModelPath: Models/Dungeon/BarrierColumn.obj
+ModelPosition: 3.0 2.0 3.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// Wall
+
+
+ModelPath: Models/Dungeon/Wall.obj
+ModelPosition: 9.0 0.0 2.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/Wall.obj
+ModelPosition: 3.0 0.0 0.0
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/Wall.obj
+ModelPosition: 3.0 0.0 17.0
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/Wall.obj
+ModelPosition: 3.0 2.0 17.0
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/Wall.obj
+ModelPosition: 3.0 2.0 0.0
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/Wall.obj
+ModelPosition: 1.0 0.0 2.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/Wall.obj
+ModelPosition: 1.0 2.0 1.5
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/Wall.obj
+ModelPosition: 3.0 0.0 3.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/Wall.obj
+ModelPosition: 9.0 2.0 1.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+
+////////////////////////////////////////////
+
+/////////////// WallGated
+
+ModelPath: Models/Dungeon/WallGated.obj
+ModelPosition: 9.0 2.0 7.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// WallDoorway
+
+ModelPath: Models/Dungeon/WallDoorway.obj
+ModelPosition: 5.0 0.0 3.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/WallDoorway.obj
+ModelPosition: 9.0 0.0 14.0
+angle: 90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// Crate
+
+ModelPath: Models/Dungeon/Crate.obj
+ModelPosition: 7.0 2.0 1.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// Shelf
+
+ModelPath: Models/Dungeon/Shelf.obj
+ModelPosition: 8.8 3.0 1.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// WallCorner
+
+ModelPath: Models/Dungeon/WallCorner.obj
+ModelPosition: 9.0 0.0 0.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/WallCorner.obj
+ModelPosition: 9.0 2.0 0.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/WallCorner.obj
+ModelPosition: 1.0 0.0 0.0
+angle: 90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/WallCorner.obj
+ModelPosition: 1.0 2.0 0.0
+angle: 90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/WallCorner.obj
+ModelPosition: 1.0 0.0 3.0
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/WallCorner.obj
+ModelPosition: 7.0 0.0 3.0
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/WallCorner.obj
+ModelPosition: 1.0 0.0 17.0
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/WallCorner.obj
+ModelPosition: 1.0 2.0 17.0
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/WallCorner.obj
+ModelPosition: 9.0 0.0 17.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/WallCorner.obj
+ModelPosition: 9.0 2.0 17.0
+angle: -90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// BannerShield
+
+ModelPath: Models/Dungeon/BannerShield.obj
+ModelPosition: 5.0 2.0 17.0
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+ModelPath: Models/Dungeon/BannerShield.obj
+ModelPosition: 1.0 2.0 7.5
+angle: 90
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+//////////////////////
+
+/////////////// Chest
+
+ModelPath: Models/Dungeon/Chest.obj	
+ModelPosition: 4.0 0.0 16.0
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// Torch
+
+
+ModelPath: Models/Dungeon/Torch.obj
+ModelPosition: 5.0 1.7 16.75
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+////////////////////////////////////////////
+
+/////////////// Lights
+
+ModelPath: Models/Torch/Torch.obj	
+ModelPosition: 4.1 -3.25 3.37
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 0.1 0.1 0.1
+
+ModelPath: Models/Torch/Torch.obj	
+ModelPosition: 5.89 -3.25 3.37
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 0.1 0.1 0.1
+
+
+ModelPath: Models/Torch/Torch.obj	
+ModelPosition: 1.35 -3.0 7.5
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 0.1 0.1 0.1
+
+ModelPath: Models/Torch/Torch.obj	
+ModelPosition: 1.35 -3.0 11.0
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 0.1 0.1 0.1
+
+ModelPath: Models/Torch/Torch.obj	
+ModelPosition: 1.35 -3.0 14.5
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 0.1 0.1 0.1
+
+ModelPath: Models/Torch/Torch.obj	
+ModelPosition: 5.0 -3.0 16.6
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 0.1 0.1 0.1
+
+////////////////////////////////////////////
+
+/////////////// Camera
+
+ModelPosition: 5.0 -1.5 1.0
+angle: 180
+ModelRotation: 0 1 0 -90
+ModelScale: 1 1 1
+
+//////////////////////
