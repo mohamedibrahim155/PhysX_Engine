@@ -29,6 +29,6 @@ private:
 	PxFoundation* foundation = NULL;
 	PxMaterial* material = NULL;
 
-	void InitializePhysX()
+	void InitializePhysX();
 };
 
