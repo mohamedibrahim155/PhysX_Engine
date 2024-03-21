@@ -235,6 +235,9 @@ void ApplicationRenderer::Start()
 
      CharacterAnimation* character = new CharacterAnimation();
 
+     PhysXObject* physixObject = new PhysXObject();
+
+     physixObject->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::BOX);
 }
 
 void ApplicationRenderer::PreRender()
@@ -303,7 +306,8 @@ void ApplicationRenderer::PreRender()
 
 void ApplicationRenderer::Render()
 {
-   
+  //  PhysXEngine::GetInstance().InitializePhysX();
+
     Start();
   
     EditorLayout::GetInstance().InitializeEditors();
@@ -401,6 +405,8 @@ void ApplicationRenderer::EngineGameLoop()
     if (isPlayMode)
     {
         EntityManager::GetInstance().Update(Time::GetInstance().deltaTime);
+
+        PhysXEngine::GetInstance().Update(Time::GetInstance().deltaTime);
     }
 
     PostRender();
@@ -496,7 +502,7 @@ void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuff
 }
 void ApplicationRenderer::PostRender()
 {
-   // glDisable(GL_BLEND);
+  
 
 }
 

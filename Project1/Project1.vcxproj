@@ -141,10 +141,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\PhysX\Collider\BoxCollider.cpp" />
+    <ClCompile Include="src\PhysX\Collider\BaseCollider.cpp" />
     <ClCompile Include="Extern\imGui\ImCurveEdit.cpp" />
     <ClCompile Include="Extern\imGui\ImGradient.cpp" />
     <ClCompile Include="Extern\imGui\ImGuizmo.cpp" />
     <ClCompile Include="Extern\imGui\ImSequencer.cpp" />
+    <ClCompile Include="src\PhysX\RigidBody.cpp" />
     <ClCompile Include="src\PhysX\PhysXEngine.cpp" />
     <ClCompile Include="src\PhysX\PhysXObject.cpp" />
     <ClCompile Include="src\Animation\Animation.cpp" />
@@ -212,11 +215,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="src\PhysX\Collider\BoxCollider.h" />
+    <ClInclude Include="src\PhysX\Collider\BaseCollider.h" />
     <ClInclude Include="Extern\imGui\ImCurveEdit.h" />
     <ClInclude Include="Extern\imGui\ImGradient.h" />
     <ClInclude Include="Extern\imGui\ImGuizmo.h" />
     <ClInclude Include="Extern\imGui\ImSequencer.h" />
     <ClInclude Include="Extern\imGui\ImZoomSlider.h" />
+    <ClInclude Include="src\PhysX\RigidBody.h" />
     <ClInclude Include="src\PhysX\PhysXEngine.h" />
     <ClInclude Include="src\PhysX\PhysXObject.h" />
     <ClInclude Include="src\Animation\Animation.h" />

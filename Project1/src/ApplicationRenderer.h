@@ -28,6 +28,7 @@
 #include "CameraManager.h"
 #include "SkinnedMeshRenderer.h"
 #include "CharacterAnimation/CharacterAnimation.h"
+#include "PhysX/PhysXEngine.h"
 class ApplicationRenderer
 {
 public:

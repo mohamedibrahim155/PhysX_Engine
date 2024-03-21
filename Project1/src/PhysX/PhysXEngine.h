@@ -1,34 +1,54 @@
 #pragma once
 #include "PxPhysicsAPI.h"
 #include "PhysXObject.h"
-
+#include <string>
+#include <vector>
 using namespace physx;
 
 //static PxDefaultAllocator		gAllocator;
 //static PxDefaultErrorCallback	gErrorCallback;
 //static PxFoundation* gFoundation = NULL;
 //static PxPhysics* gPhysics = NULL;
-//static PxDefaultCpuDispatcher* gDispatcher = NULL;
+//static PxDefaultCpuDispatcher* dispatcher = NULL;
 //static PxScene* gScene = NULL;
 //static PxMaterial* gMaterial = NULL;
-//static PxPvd* gPvd = NULL;
+//static PxPvd* physxDebbuggerDisplay = NULL;
 
 
 class PhysXEngine
 {
-
 	PhysXEngine();
 	~PhysXEngine();
 public:
 	static PhysXEngine& GetInstance();
+
+
+	PxPhysics* GetPhysics();
+	PxScene* GetPhysicsScene() const;
+
+	void InitializePhysX();
+	void Update(float deltaTime);
+
+	void AddPhysXObject(PhysXObject* object);
+	void RemovePhysXObject(PhysXObject* object);
 
 private:
 
 	PxScene* scene = NULL;
     PxPhysics* physics = NULL;
 	PxFoundation* foundation = NULL;
-	PxMaterial* material = NULL;
+	PxMaterial* physicsMaterial = NULL;
+	PxDefaultAllocator allocator;
+    PxDefaultErrorCallback	errorCallback;
+    PxDefaultCpuDispatcher* dispatcher = NULL;
+	PxPvd* physXDebuggerDisplay;
 
-	void InitializePhysX();
+	const std::string host = "127.0.0.1";
+
+	std::vector<PhysXObject*> physicsObjects;
+
+
+
+	
 };
 
