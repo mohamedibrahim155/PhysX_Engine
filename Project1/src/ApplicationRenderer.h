@@ -45,10 +45,10 @@ public:
 	void InitializeSkybox();
 	
 	void Start();
-	void PreRender();
 	void Render();
 	void PostRender();
 	void Clear();
+	void ShutDown();
 
 	void ProcessInput(GLFWwindow* window);
 

@@ -14,14 +14,16 @@ public :
 	~BoxCollider();
 
 	glm::vec3 boxCentre;
-	glm::vec3 sizeExtents = glm::vec3(2);
+	glm::vec3 sizeExtents = glm::vec3(1);
 
 	// Inherited via BaseCollider
     void ConstructCollider() override;
     void InitializeCollider(PhysXObject* object) override;
+	void Render() override;
+	void SetPhysicsMaterial(PhysicsMaterial& material) override;
 	PxShape* GetShape() override;
 
-
+	void SetSize(glm::vec3 size);
 private:
 
 
@@ -32,14 +34,6 @@ private:
 	PxBoxGeometry CreateBoxGeometryFromAABB(const PxBounds3& aabb);
 
 	
-
-
-	// Inherited via BaseCollider
-	void Render() override;
-
-
-	// Inherited via BaseCollider
-	void SetPhysicsMaterial(PhysicsMaterial& material) override;
 
 };
 

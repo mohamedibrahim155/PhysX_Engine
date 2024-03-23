@@ -28,7 +28,7 @@ void PhysXObject::Initialize(RigidBody::RigidBodyType bodyType, BaseCollider::Co
 
     rigidBody->SetRigidBodyType(bodyType);
 
-	rigidBody->InitializeRigidBody(this);
+	//rigidBody->InitializeRigidBody(this);
 
 
 	PhysXEngine::GetInstance().AddPhysXObject(this);

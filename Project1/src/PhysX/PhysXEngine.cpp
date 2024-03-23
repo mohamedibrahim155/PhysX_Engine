@@ -2,12 +2,12 @@
 #include "PhysXUtils.h"
 PhysXEngine::PhysXEngine()
 {
-	InitializePhysX();
+	//InitializePhysX();
 }
 
 PhysXEngine::~PhysXEngine()
 {
-	ShutDown();
+	//ShutDown();
 }
 
 PhysXEngine& PhysXEngine::GetInstance()
@@ -144,8 +144,6 @@ void PhysXEngine::UpdatePhysicsRenders()
 
 void PhysXEngine::AddPhysXObject(PhysXObject* object)
 {
-	scene->addActor(*object->GetRigidBody()->GetPxRigidBody());
-
 	physicsObjects.push_back(object);
 }
 
@@ -157,6 +155,20 @@ void PhysXEngine::RemovePhysXObject(PhysXObject* object)
 	{
 		physicsObjects.erase(it);
 	}
+}
+
+void PhysXEngine::InitializePhysXObjects()
+{
+	if (isApplicationPlay)
+	{
+		return;
+	}
+	for (PhysXObject* physXObject : physicsObjects)
+	{
+		physXObject->rigidBody->InitializeRigidBody(physXObject);
+	}
+
+	isApplicationPlay = true;
 }
 
 

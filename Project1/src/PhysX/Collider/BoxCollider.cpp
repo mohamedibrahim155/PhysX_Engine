@@ -28,7 +28,7 @@ void BoxCollider::ConstructCollider()
 		CreateBoxGeometryFromAABB(modelAABB), 
 		*physicsMaterial);
 
-	sizeExtents = PxVec3ToGLM(modelAABB.getDimensions() * 0.5f);
+//	sizeExtents = PxVec3ToGLM(modelAABB.getDimensions() * 0.5f);
 }
 
 void BoxCollider::InitializeCollider(PhysXObject* object)
@@ -44,10 +44,32 @@ PxShape* BoxCollider::GetShape()
 	return boxshape;
 }
 
+void BoxCollider::SetSize(glm::vec3 size)
+{
+	sizeExtents = size;
+
+	 PxBoxGeometry shapeGeomentry = CreateBoxGeometryFromAABB(modelAABB);
+
+	if (boxshape)
+	{
+		boxshape->setGeometry(shapeGeomentry);
+	}
+}
+
 PxBoxGeometry BoxCollider::CreateBoxGeometryFromAABB(const PxBounds3& aabb)
 {
 	PxVec3 dimensions = aabb.getDimensions();
-	PxBoxGeometry boxGeometry(dimensions * 0.5f); // Half extents are used for PxBoxGeometry
+
+	PxVec3 extends = GLMToPxVec3(sizeExtents);
+
+	PxVec3 tempExtends;
+
+	tempExtends.x = aabb.getExtents(0) * extends.x;
+	tempExtends.y = aabb.getExtents(1) * extends.y;
+	tempExtends.z = aabb.getExtents(2) * extends.z;
+
+	PxBoxGeometry boxGeometry(tempExtends); // Half extents are used for PxBoxGeometry
+
 	return boxGeometry;
 }
 
@@ -60,11 +82,18 @@ void BoxCollider::Render()
 		boxAABB.minimum += GLMToPxVec3( physicsObject->transform.position);
 		boxAABB.maximum += GLMToPxVec3(physicsObject->transform.position);
 
+		PxVec3 extends = GLMToPxVec3(sizeExtents);
+
+		PxVec3 tempExtends;
+
+		tempExtends.x = boxAABB.getExtents(0) * extends.x;
+		tempExtends.y = boxAABB.getExtents(1) * extends.y;
+		tempExtends.z = boxAABB.getExtents(2) * extends.z;
 
 
 		GraphicsRender::GetInstance().DrawBox(
 			PxVec3ToGLM(boxAABB.getCenter()),
-			PxVec3ToGLM(boxAABB.getDimensions() * 0.5f),
+			PxVec3ToGLM(tempExtends),
 			physicsObject->transform.rotation,
 			glm::vec4(0,1,0,1),true);
 

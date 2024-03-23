@@ -38,6 +38,8 @@ public:
 
 	void AddPhysXObject(PhysXObject* object);
 	void RemovePhysXObject(PhysXObject* object);
+	void InitializePhysXObjects();
+
 private:
 
 	PxScene* scene = NULL;
@@ -54,5 +56,6 @@ private:
 
 	const  static unsigned int MAXNUM_ACTOR_SHAPES = 128;
 	const std::string host = "127.0.0.1";
+	bool isApplicationPlay = false;
 };
 

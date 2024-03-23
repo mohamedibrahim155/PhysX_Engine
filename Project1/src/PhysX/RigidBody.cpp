@@ -115,5 +115,8 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 
 	physicsObject->rigidActor->attachShape(*physicsObject->collider->GetShape());
 
+	PhysXEngine::GetInstance().GetPhysicsScene()->addActor(*physicsObject->rigidActor);
+
+
 }
 

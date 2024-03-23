@@ -139,6 +139,8 @@ void ApplicationRenderer::WindowInitialize(int width, int height,  std::string w
    // renderTextureCamera->IntializeRenderTexture(new RenderTexture());
   
     isImguiPanelsEnable = true;
+
+    PhysXEngine::GetInstance().InitializePhysX();
 }
 
 void ApplicationRenderer::InitializeShaders()
@@ -217,24 +219,6 @@ void ApplicationRenderer::Start()
     
 
 
-   //  Model* plant = new Model("Models/Plant.fbm/Plant.fbx");
- 
-     //Model* characterModel = new Model("Models/Character/X Bot.fbx");
-     //characterModel->name = "CharacterModel";
-     //characterModel->transform.SetScale(glm::vec3(0.01f));
-
-    // Model* characterModel = new Model("Models/Character/Adventurer Aland@Idle.fbx");
-     //GraphicsRender::GetInstance().AddModelAndShader(characterModel, defaultShader);
-
-    // SkinnedMeshRenderer* xBot = new SkinnedMeshRenderer("Models/Character/X Bot.fbx");
-    // xBot->transform.SetScale(glm::vec3(0.01f));
-    //
-    // xBot->LoadAnimation("Models/Character/Rumba Dancing.fbx");
-    //
-    // GraphicsRender::GetInstance().AddModelAndShader(xBot, animationShader);
-
-     //CharacterAnimation* character = new CharacterAnimation();
-
      PhysXObject* physixObject = new PhysXObject();
      physixObject->LoadModel("Models/DefaultCube/DefaultCube.fbx");
      physixObject->transform.SetPosition(glm::vec3(0, 5, 0));
@@ -245,8 +229,10 @@ void ApplicationRenderer::Start()
      
      PhysicsMaterial material;
      material.dynamicFriction = 2;
-     material.bounciness = 10;
+     material.bounciness = 1;
      physixObject->collider->SetPhysicsMaterial(material);
+
+     physixObject->collider->AsBoxCollider()->SetSize(glm::vec3(1, 2, 1));
 
      PhysXObject* physixObject2 = new PhysXObject();
      physixObject2->LoadModel("Models/DefaultCube/DefaultCube.fbx");
@@ -257,73 +243,10 @@ void ApplicationRenderer::Start()
      physixObject2->Initialize(RigidBody::RigidBodyType::STATIC, BaseCollider::ColliderShape::BOX);
 }
 
-void ApplicationRenderer::PreRender()
-{
-    projection = sceneViewcamera->GetProjectionMatrix();
-
-    view = sceneViewcamera->GetViewMatrix();
-
-    skyBoxView = glm::mat4(glm::mat3(sceneViewcamera->GetViewMatrix()));
-  
-
-    defaultShader->Bind();
-    LightManager::GetInstance().UpdateUniformValuesToShader(defaultShader);
-
-    defaultShader->setMat4("projection", projection);
-    defaultShader->setMat4("view", view);
-    defaultShader->setVec3("viewPos", sceneViewcamera->transform.position.x, sceneViewcamera->transform.position.y, sceneViewcamera->transform.position.z);
-    defaultShader->setFloat("time", scrollTime);
-    defaultShader->setBool("isDepthBuffer", false);
-
-    animationShader->Bind();
-    LightManager::GetInstance().UpdateUniformValuesToShader(animationShader);
-
-    animationShader->setMat4("projection", projection);
-    animationShader->setMat4("view", view);
-    animationShader->setVec3("viewPos", sceneViewcamera->transform.position.x, sceneViewcamera->transform.position.y, sceneViewcamera->transform.position.z);
-    animationShader->setBool("isDepthBuffer", false);
-
-    alphaBlendShader->Bind();
-    LightManager::GetInstance().UpdateUniformValuesToShader(alphaBlendShader);
-    alphaBlendShader->setMat4("projection", projection);
-    alphaBlendShader->setMat4("view", view);
-    alphaBlendShader->setVec3("viewPos", sceneViewcamera->transform.position.x, sceneViewcamera->transform.position.y, sceneViewcamera->transform.position.z);
-    alphaBlendShader->setFloat("time", scrollTime);
-    alphaBlendShader->setBool("isDepthBuffer", false);
-
-    alphaCutoutShader->Bind();
-    LightManager::GetInstance().UpdateUniformValuesToShader(alphaCutoutShader);
-    alphaCutoutShader->setMat4("projection", projection);
-    alphaCutoutShader->setMat4("view", view);
-    alphaCutoutShader->setVec3("viewPos", sceneViewcamera->transform.position.x, sceneViewcamera->transform.position.y, sceneViewcamera->transform.position.z);
-    alphaCutoutShader->setFloat("time", scrollTime);
-    alphaCutoutShader->setBool("isDepthBuffer", false);
-
-    solidColorShader->Bind();
-    solidColorShader->setMat4("projection", projection);
-    solidColorShader->setMat4("view", view);
-
-    stencilShader->Bind();
-    stencilShader->setMat4("projection", projection);
-    stencilShader->setMat4("view", view);
-
-    glDepthFunc(GL_LEQUAL);
-    skyboxShader->Bind();
-    skyboxShader->setMat4("projection", projection);
-    skyboxShader->setMat4("view", skyBoxView);
-
-    GraphicsRender::GetInstance().SkyBoxModel->Draw(*skyboxShader);
-    glDepthFunc(GL_LESS);
-
-
-    /* ScrollShader->Bind();
-       ScrollShader->setMat4("ProjectionMatrix", _projection);*/
-
-}
 
 void ApplicationRenderer::Render()
 {
-  //  PhysXEngine::GetInstance().InitializePhysX();
+
 
     Start();
   
@@ -349,6 +272,8 @@ void ApplicationRenderer::Render()
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
+    ShutDown();
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
@@ -423,6 +348,7 @@ void ApplicationRenderer::EngineGameLoop()
     {
         EntityManager::GetInstance().Update(Time::GetInstance().deltaTime);
 
+        PhysXEngine::GetInstance().InitializePhysXObjects();
         PhysXEngine::GetInstance().Update(Time::GetInstance().deltaTime);
     }
 
@@ -528,6 +454,11 @@ void ApplicationRenderer::Clear()
     GLCALL(glClearColor(0.1f, 0.1f, 0.1f, 0.1f));
     GLCALL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
    //glStencilMask(0x00);
+}
+
+void ApplicationRenderer::ShutDown()
+{
+    PhysXEngine::GetInstance().ShutDown();
 }
 
 void ApplicationRenderer::ProcessInput(GLFWwindow* window)
