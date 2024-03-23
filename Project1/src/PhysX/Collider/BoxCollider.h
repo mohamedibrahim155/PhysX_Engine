@@ -35,7 +35,7 @@ private:
 
 
 	// Inherited via BaseCollider
-	void DrawRender() override;
+	void Render() override;
 
 };
 

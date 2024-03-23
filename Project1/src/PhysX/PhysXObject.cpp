@@ -56,7 +56,7 @@ void PhysXObject::Render()
 {
 	if (collider)
 	{
-		collider->DrawRender();
+		collider->Render();
 	}
 }
 

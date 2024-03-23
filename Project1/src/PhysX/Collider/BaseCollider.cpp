@@ -10,6 +10,15 @@ void BaseCollider::InitializeCollider(PhysXObject* object)
 	physXTransform = &object->transform;
 
 	modelAABB = CalculatePxModelAABB();
+
+	modelAABB.minimum.x *= physXTransform->scale.x;
+	modelAABB.minimum.y *= physXTransform->scale.y;
+	modelAABB.minimum.z *= physXTransform->scale.z;
+
+	modelAABB.maximum.x *= physXTransform->scale.x;
+	modelAABB.maximum.y *= physXTransform->scale.y;
+	modelAABB.maximum.z *= physXTransform->scale.z;
+
 	
 }
 

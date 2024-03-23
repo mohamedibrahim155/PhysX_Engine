@@ -18,7 +18,7 @@ public:
 	};
 
 	virtual void ConstructCollider() = 0;
-	virtual void DrawRender() = 0;
+	virtual void Render() = 0;
 	virtual void InitializeCollider(PhysXObject* object);
 
 	virtual PxShape* GetShape() = 0;

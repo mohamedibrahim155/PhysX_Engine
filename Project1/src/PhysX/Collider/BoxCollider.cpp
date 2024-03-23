@@ -46,7 +46,7 @@ PxBoxGeometry BoxCollider::CreateBoxGeometryFromAABB(const PxBounds3& aabb)
 	return boxGeometry;
 }
 
-void BoxCollider::DrawRender()
+void BoxCollider::Render()
 {
 	if (physicsObject)
 	{
