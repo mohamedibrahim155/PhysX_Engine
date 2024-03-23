@@ -8,9 +8,9 @@ BoxCollider::BoxCollider()
 
 BoxCollider::~BoxCollider()
 {
-	if (shape)
+	if (boxshape)
 	{
-		shape->release();
+		boxshape->release();
 	}
 }
 
@@ -18,20 +18,15 @@ void BoxCollider::ConstructCollider()
 {
 	shapeType = ColliderShape::BOX;
 
-	physicsMaterial = physics->createMaterial(0.5f, 0.5f, 0.6f);
+	physicsMaterial = PhysXEngine::GetInstance().GetPxPhysicsMaterial();
 
-	shape = physics->createShape(PxBoxGeometry(sizeExtents.x, sizeExtents.y, sizeExtents.z), *physicsMaterial);
-}
-
-void BoxCollider::DrawProperties()
-{
-}
-
-void BoxCollider::SceneDraw()
-{
+	boxshape = physics->createShape(PxBoxGeometry(sizeExtents.x, sizeExtents.y, sizeExtents.z), *physicsMaterial);
 }
 
 PxShape* BoxCollider::GetShape()
 {
-	return shape;
+	return boxshape;
 }
+
+
+

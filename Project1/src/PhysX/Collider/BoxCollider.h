@@ -5,6 +5,7 @@
 #include "BaseCollider.h"
 using namespace physx;
 
+
 class BoxCollider : public BaseCollider
 {
 public :
@@ -17,18 +18,18 @@ public :
 
 	// Inherited via BaseCollider
     void ConstructCollider() override;
+	PxShape* GetShape() override;
 
-	// Inherited via Object
-	void DrawProperties() override;
-	void SceneDraw() override;
-
-	PxShape* GetShape();
 
 private:
 
 
 	PxMaterial* physicsMaterial;
 	PxPhysics* physics;
+	PxShape* boxshape = nullptr;
+
+
+	
 
 };
 

@@ -7,6 +7,7 @@ PhysXEngine::PhysXEngine()
 
 PhysXEngine::~PhysXEngine()
 {
+	ShutDown();
 }
 
 PhysXEngine& PhysXEngine::GetInstance()
@@ -14,40 +15,6 @@ PhysXEngine& PhysXEngine::GetInstance()
 	static PhysXEngine instance;
 
 	return instance;
-}
-
-void PhysXEngine::Update(float deltaTime)
-{
-	if (scene)
-	{
-		scene->simulate(deltaTime);
-		scene->fetchResults(true);
-	}
-}
-
-void PhysXEngine::AddPhysXObject(PhysXObject* object)
-{
-	physicsObjects.push_back(object);
-}
-
-void PhysXEngine::RemovePhysXObject(PhysXObject* object)
-{
-	std::vector<PhysXObject*>::iterator it = std::find(physicsObjects.begin(), physicsObjects.end(), object);
-
-	if (it!=physicsObjects.end())
-	{
-		physicsObjects.erase(it);
-	}
-}
-
-PxPhysics* PhysXEngine::GetPhysics()
-{
-	return physics;
-}
-
-PxScene* PhysXEngine::GetPhysicsScene() const
-{
-	return scene;
 }
 
 void PhysXEngine::InitializePhysX()
@@ -79,12 +46,79 @@ void PhysXEngine::InitializePhysX()
 		pvdClient->setScenePvdFlag(PxPvdSceneFlag::eTRANSMIT_SCENEQUERIES, true);
 	}
 
-	physicsMaterial = physics->createMaterial(0.5f, 0.5f, 0.6f);
+	pxMaterial = physics->createMaterial(defaultPhysicsMaterial.staticFriction, defaultPhysicsMaterial.dynamicFriction, defaultPhysicsMaterial.bounciness);
 
-	PxRigidStatic* groundPlane = PxCreatePlane(*physics, PxPlane(0, 1, 0, 0), *physicsMaterial);
+	pxMaterial->setDynamicFriction(PxCombineToLocal(defaultPhysicsMaterial.frictionCombine));
+	pxMaterial->setRestitutionCombineMode(PxCombineToLocal(defaultPhysicsMaterial.bounceCombine));
+
+
+	PxRigidStatic* groundPlane = PxCreatePlane(*physics, PxPlane(0, 1, 0, 0), *pxMaterial);
 
 	scene->addActor(*groundPlane);
 
 
 
 }
+
+void PhysXEngine::ShutDown()
+{
+	PX_RELEASE(scene);
+	PX_RELEASE(dispatcher);
+	PX_RELEASE(physics);
+	if (physXDebuggerDisplay)
+	{
+		PxPvdTransport* transport = physXDebuggerDisplay->getTransport();
+		physXDebuggerDisplay->release();	physXDebuggerDisplay = NULL;
+		PX_RELEASE(transport);
+	}
+	PX_RELEASE(foundation);
+}
+
+void PhysXEngine::Update(float deltaTime)
+{
+	if (scene)
+	{
+		scene->simulate(deltaTime);
+		scene->fetchResults(true);
+	}
+}
+
+void PhysXEngine::AddPhysXObject(PhysXObject* object)
+{
+	scene->addActor(*object->GetRigidBody()->GetPxRigidBody());
+
+	physicsObjects.push_back(object);
+}
+
+void PhysXEngine::RemovePhysXObject(PhysXObject* object)
+{
+	std::vector<PhysXObject*>::iterator it = std::find(physicsObjects.begin(), physicsObjects.end(), object);
+
+	if (it!=physicsObjects.end())
+	{
+		physicsObjects.erase(it);
+	}
+}
+
+
+PxPhysics* PhysXEngine::GetPhysics()
+{
+	return physics;
+}
+
+PxScene* PhysXEngine::GetPhysicsScene() const
+{
+	return scene;
+}
+
+PhysicsMaterial* PhysXEngine::GetDefaultPhysicsMaterial() 
+{
+	return &defaultPhysicsMaterial;
+}
+
+PxMaterial* PhysXEngine::GetPxPhysicsMaterial()
+{
+	return pxMaterial;
+}
+
+

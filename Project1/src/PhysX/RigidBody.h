@@ -6,6 +6,7 @@
 #include <PxPhysics.h>
 using namespace physx;
 
+class PhysXObject;
 class RigidBody
 {
 public:
@@ -21,16 +22,24 @@ public:
 
 	PxRigidDynamic* AsDynamicRigidBody();
 	PxRigidStatic* AsStaticRigidBody();
-	PxRigidBody* GetRigidBody();
+	PxRigidActor* GetPxRigidBody();
 
 	BaseCollider* collider;
 	RigidBodyType rigidBodyType;
 
 	void InitilizeRigidBody(BaseCollider::ColliderShape colliderShape);
+	void InitializeRigidBody(PhysXObject* object);
+	void SetRigidBodyType(RigidBodyType type); 
+	void SetDrag(float drag);
+	void SetMass(float mass);
+	void SetVelocity(const glm::vec3& velocity);
+	void SetPosition(glm::vec3 position);
+
 private:
 
-	PxRigidBody* pxRigidBody;
+	PxRigidActor* pxRigidActor;
 	PxPhysics* physics;
-	PxTransform transform;
+	PxTransform pxTransform;
+	PhysXObject* physicsObject;
 };
 

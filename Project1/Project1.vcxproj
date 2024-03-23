@@ -141,6 +141,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\PhysX\PhysXUtils.cpp" />
+    <ClCompile Include="src\PhysX\PhysicsMaterial\PhysicsMaterial.cpp" />
     <ClCompile Include="src\PhysX\Collider\BoxCollider.cpp" />
     <ClCompile Include="src\PhysX\Collider\BaseCollider.cpp" />
     <ClCompile Include="Extern\imGui\ImCurveEdit.cpp" />
@@ -215,6 +217,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="src\PhysX\PhysXUtils.h" />
+    <ClInclude Include="src\PhysX\PhysicsMaterial\PhysicsMaterial.h" />
     <ClInclude Include="src\PhysX\Collider\BoxCollider.h" />
     <ClInclude Include="src\PhysX\Collider\BaseCollider.h" />
     <ClInclude Include="Extern\imGui\ImCurveEdit.h" />

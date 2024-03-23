@@ -1,6 +1,6 @@
 #include "RigidBody.h"
 #include "PhysXEngine.h"
-
+#include "PhysXUtils.h"
 RigidBody::RigidBody()
 {
 	physics = PhysXEngine::GetInstance().GetPhysics();
@@ -8,57 +8,83 @@ RigidBody::RigidBody()
 
 RigidBody::~RigidBody()
 {
-	if (pxRigidBody)
+	if (pxRigidActor)
 	{
-		pxRigidBody->release();
+		pxRigidActor->release();
 	}
+}
+
+void RigidBody::SetRigidBodyType(RigidBodyType type)
+{
+	rigidBodyType = type;
+}
+
+void RigidBody::SetDrag(float drag)
+{
+	
+}
+
+void RigidBody::SetMass(float mass)
+{
+	((PxRigidDynamic*)pxRigidActor)->setMass(mass);
+}
+
+void RigidBody::SetVelocity(const glm::vec3& velocity)
+{
+	AsDynamicRigidBody()->setLinearVelocity(GLMToPxVec3(velocity));
+}
+
+void RigidBody::SetPosition(glm::vec3 position)
+{
+	PxTransform localTm(PxVec3(position.x, position.y, position.z));
+	pxTransform = localTm;
 }
 
 PxRigidDynamic* RigidBody::AsDynamicRigidBody()
 {
-	return (PxRigidDynamic*)pxRigidBody;
+	return (PxRigidDynamic*)pxRigidActor;
 }
 
 PxRigidStatic* RigidBody::AsStaticRigidBody()
 {
-	return (PxRigidStatic*)pxRigidBody;
+	return (PxRigidStatic*)pxRigidActor;
 
 }
 
-PxRigidBody* RigidBody::GetRigidBody()
+PxRigidActor* RigidBody::GetPxRigidBody()
 {
-	return pxRigidBody;
+	return pxRigidActor;
 }
 
 void RigidBody::InitilizeRigidBody(BaseCollider::ColliderShape colliderShape)
 {
 
-	if (colliderShape == BaseCollider::ColliderShape::BOX)
+	switch (colliderShape)
 	{
+	case BaseCollider::ColliderShape::NONE:
+		break;
+	case BaseCollider::ColliderShape::BOX:
 		collider = new BoxCollider();
-
-		collider->ConstructCollider();
+		break;
+	case BaseCollider::ColliderShape::SPHERE:
+		break;
+	default:
+		break;
 	}
-	else if (colliderShape == BaseCollider::ColliderShape::SPHERE)
+
+	collider->ConstructCollider();
+
+	switch (rigidBodyType)
 	{
+	case RigidBody::RigidBodyType::DYNAMIC:
 
+		pxRigidActor = physics->createRigidDynamic(pxTransform);
+		break;
+	case RigidBody::RigidBodyType::STATIC:
+		pxRigidActor = physics->createRigidStatic(pxTransform);
+		break;
 	}
 
-	if (rigidBodyType == RigidBodyType::DYNAMIC)
-	{
-		PxTransform localTm(PxVec3(PxReal(0), PxReal(10), 0));
-
-		pxRigidBody = physics->createRigidDynamic(localTm);
-
-		pxRigidBody->attachShape(*collider->AsBoxCollider()->shape);
-
-		PhysXEngine::GetInstance().GetPhysicsScene()->addActor(*pxRigidBody);
-
-	}
-	else if (rigidBodyType == RigidBodyType::STATIC)
-	{
-
-	}
-
+	pxRigidActor->attachShape(*collider->GetShape());
 }
 

@@ -1,5 +1,5 @@
 #include "PhysXObject.h"
-
+#include "PhysXEngine.h"
 PhysXObject::PhysXObject()
 {
 }
@@ -12,16 +12,46 @@ void PhysXObject::Initialize(RigidBody::RigidBodyType bodyType, BaseCollider::Co
 {
 	rigidBody = new RigidBody();
 
-	if (bodyType == RigidBody::RigidBodyType::DYNAMIC)
-	{
-		rigidBody->rigidBodyType = RigidBody::RigidBodyType::DYNAMIC;
+	
+   rigidBody->SetRigidBodyType(bodyType);
 
-	}
-	else
-	{
-		rigidBody->rigidBodyType = RigidBody::RigidBodyType::STATIC;
-	}
+	rigidBody->SetPosition(transform.position);
 
 	rigidBody->InitilizeRigidBody(colliderShape);
 
+
+
+	PhysXEngine::GetInstance().AddPhysXObject(this);
+
+}
+
+void PhysXObject::DrawProperties()
+{
+	Model::DrawProperties();
+}
+
+void PhysXObject::SceneDraw()
+{
+	Model::SceneDraw();
+}
+
+void PhysXObject::Start()
+{
+}
+
+void PhysXObject::Update(float deltaTime)
+{
+}
+
+void PhysXObject::Render()
+{
+}
+
+void PhysXObject::OnDestroy()
+{
+}
+
+RigidBody* PhysXObject::GetRigidBody()
+{
+	return rigidBody;
 }

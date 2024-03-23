@@ -4,8 +4,10 @@
 
 using namespace physx;
 
+class PhysXObject;
 class BoxCollider;
-class BaseCollider : public Object
+
+class BaseCollider
 {
 public:
 	enum class ColliderShape
@@ -14,14 +16,17 @@ public:
 		BOX = 0,
 		SPHERE = 1
 	};
-	// Inherited via Object
+
 	virtual void ConstructCollider() = 0;
-	virtual void DrawProperties() override;
-	virtual void SceneDraw() override;
+	virtual PxShape* GetShape() = 0;
 
 	ColliderShape shapeType;
-	PxShape* shape = nullptr;
+
 
 	BoxCollider* AsBoxCollider();
+
+	PhysXObject* physicsObject;
+	PxShape* shape = nullptr;
+	//Transform* physXTransform;
 };
 

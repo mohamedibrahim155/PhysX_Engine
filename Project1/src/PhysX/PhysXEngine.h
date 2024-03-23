@@ -1,6 +1,7 @@
 #pragma once
 #include "PxPhysicsAPI.h"
 #include "PhysXObject.h"
+#include "PhysicsMaterial/PhysicsMaterial.h"
 #include <string>
 #include <vector>
 using namespace physx;
@@ -25,19 +26,24 @@ public:
 
 	PxPhysics* GetPhysics();
 	PxScene* GetPhysicsScene() const;
+	PhysicsMaterial* GetDefaultPhysicsMaterial();
+	PxMaterial* GetPxPhysicsMaterial();
 
 	void InitializePhysX();
+	void ShutDown();
+
 	void Update(float deltaTime);
 
 	void AddPhysXObject(PhysXObject* object);
 	void RemovePhysXObject(PhysXObject* object);
+
 
 private:
 
 	PxScene* scene = NULL;
     PxPhysics* physics = NULL;
 	PxFoundation* foundation = NULL;
-	PxMaterial* physicsMaterial = NULL;
+	PxMaterial* pxMaterial = NULL;
 	PxDefaultAllocator allocator;
     PxDefaultErrorCallback	errorCallback;
     PxDefaultCpuDispatcher* dispatcher = NULL;
@@ -47,6 +53,7 @@ private:
 
 	std::vector<PhysXObject*> physicsObjects;
 
+	PhysicsMaterial defaultPhysicsMaterial;
 
 
 	

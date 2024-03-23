@@ -236,7 +236,9 @@ void ApplicationRenderer::Start()
      CharacterAnimation* character = new CharacterAnimation();
 
      PhysXObject* physixObject = new PhysXObject();
-
+     physixObject->LoadModel("Models/DefaultCube/DefaultCube.fbx");
+     physixObject->transform.SetPosition(glm::vec3(0, 5, 0));
+     GraphicsRender::GetInstance().AddModelAndShader(physixObject, defaultShader);
      physixObject->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::BOX);
 }
 
