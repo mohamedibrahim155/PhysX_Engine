@@ -10,6 +10,16 @@ PxVec3 GLMToPxVec3(const glm::vec3& value)
     return PxVec3(value.x,value.y,value.z);
 }
 
+glm::quat PxQuatToGLM(const PxQuat& value)
+{
+	return glm::quat(value.w, value.x, value.y, value.z);
+}
+
+PxQuat GLMToPxQuat(const glm::quat& glmQuat) 
+{
+	return PxQuat(glmQuat.x, glmQuat.y, glmQuat.z, glmQuat.w);
+}
+
 PxBounds3 CalculateAABB(std::vector<Vertex> vertices)
 {
     if (vertices.size() == 0)

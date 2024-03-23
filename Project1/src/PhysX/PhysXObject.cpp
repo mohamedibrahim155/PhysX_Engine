@@ -30,6 +30,7 @@ void PhysXObject::Initialize(RigidBody::RigidBodyType bodyType, BaseCollider::Co
 
 	rigidBody->InitializeRigidBody(this);
 
+
 	PhysXEngine::GetInstance().AddPhysXObject(this);
 
 }

@@ -1,5 +1,5 @@
 #include "PhysXEngine.h"
-
+#include "PhysXUtils.h"
 PhysXEngine::PhysXEngine()
 {
 	InitializePhysX();
@@ -46,18 +46,22 @@ void PhysXEngine::InitializePhysX()
 		pvdClient->setScenePvdFlag(PxPvdSceneFlag::eTRANSMIT_SCENEQUERIES, true);
 	}
 
-	pxMaterial = physics->createMaterial(defaultPhysicsMaterial.staticFriction, defaultPhysicsMaterial.dynamicFriction, defaultPhysicsMaterial.bounciness);
+	defaultPhysicsMaterial.staticFriction = 0.6f;
+	defaultPhysicsMaterial.dynamicFriction = 0.6f;
+	defaultPhysicsMaterial.bounciness = 0;
+
+	pxMaterial = physics->createMaterial(
+		PxReal(defaultPhysicsMaterial.staticFriction),
+		PxReal(defaultPhysicsMaterial.dynamicFriction),
+		PxReal(defaultPhysicsMaterial.bounciness));
+
+	/*pxMaterial = physics->createMaterial(
+		0.5f,
+		0,
+		1);*/
 
 	pxMaterial->setDynamicFriction(PxCombineToLocal(defaultPhysicsMaterial.frictionCombine));
 	pxMaterial->setRestitutionCombineMode(PxCombineToLocal(defaultPhysicsMaterial.bounceCombine));
-
-
-	PxRigidStatic* groundPlane = PxCreatePlane(*physics, PxPlane(0, 1, 0, 0), *pxMaterial);
-
-	scene->addActor(*groundPlane);
-
-
-
 }
 
 void PhysXEngine::ShutDown()
@@ -80,6 +84,61 @@ void PhysXEngine::Update(float deltaTime)
 	{
 		scene->simulate(deltaTime);
 		scene->fetchResults(true);
+
+		UpdatePhysicsRenders();
+	}
+}
+
+void PhysXEngine::UpdatePhysicsRenders()
+{
+	for (PhysXObject* physXObject : physicsObjects)
+	{
+		if (physXObject->rigidBody->rigidBodyType == RigidBody::RigidBodyType::STATIC)
+		{
+			continue;
+		}
+
+		PxU32 nbActors = scene->getNbActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC);
+
+		if (nbActors)
+		{
+			std::vector<PxRigidActor*> actors(nbActors);
+			scene->getActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC, reinterpret_cast<PxActor**>(&actors[0]), nbActors);
+
+
+			PxShape* shapes[MAXNUM_ACTOR_SHAPES];
+
+			const PxU32 numActors = actors.size();
+
+			for (PxU32 i = 0; i < numActors; i++)
+			{
+				const PxU32 nbShapes = actors[i]->getNbShapes();
+				PX_ASSERT(nbShapes <= MAX_NUM_ACTOR_SHAPES);
+
+				actors[i]->getShapes(shapes, nbShapes);
+
+				for (PxU32 j = 0; j < nbShapes; j++)
+				{
+					const PxTransform shapePose = PxShapeExt::getGlobalPose(*shapes[j], *actors[i]);
+
+
+					const PxVec3 translation = shapePose.p;
+					const PxQuat rotation = shapePose.q;
+
+					glm::quat glmRotation = PxQuatToGLM(rotation);
+					glm::vec3 position = PxVec3ToGLM(translation);
+
+
+					physXObject->transform.SetPosition(position);
+					physXObject->transform.SetQuatRotation(glmRotation);
+
+				}
+			}
+
+
+
+		}
+
 	}
 }
 

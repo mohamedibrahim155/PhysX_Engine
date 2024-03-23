@@ -58,6 +58,7 @@ public:
 	void Clear();
 	void DrawSphere(glm::vec3 center, float radius, glm::vec4 color, bool isWireFrame = false);
 	void DrawBox(glm::vec3 center, glm::vec3 dimensions, glm::vec4 color ,bool isWireFrame = false);
+	void DrawBox(glm::vec3 center, glm::vec3 dimensions, glm::vec3 rotation, glm::vec4 color ,bool isWireFrame = false);
 	void DrawLine(glm::vec3 start, glm::vec3 endpoint, glm::vec4 color);
 
 	Model* selectedModel;

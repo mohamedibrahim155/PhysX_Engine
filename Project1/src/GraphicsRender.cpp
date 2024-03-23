@@ -189,6 +189,16 @@ void GraphicsRender::DrawBox(glm::vec3 center, glm::vec3 dimensions, glm::vec4 c
 
 }
 
+void GraphicsRender::DrawBox(glm::vec3 center, glm::vec3 dimensions, glm::vec3 rotation, glm::vec4 color, bool isWireFrame)
+{
+	Model* model = new Model(*(DebugModels::GetInstance().defaultCube), true);
+	model->transform.SetPosition(center);
+	model->transform.SetRotation(rotation);
+	model->transform.SetScale(dimensions);
+	model->DrawSolidColor(color, isWireFrame);
+	delete model;
+}
+
 void GraphicsRender::DrawLine(glm::vec3 start, glm::vec3 endpoint, glm::vec4 color)
 {
 

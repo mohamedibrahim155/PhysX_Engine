@@ -233,14 +233,28 @@ void ApplicationRenderer::Start()
     //
     // GraphicsRender::GetInstance().AddModelAndShader(xBot, animationShader);
 
-     CharacterAnimation* character = new CharacterAnimation();
+     //CharacterAnimation* character = new CharacterAnimation();
 
      PhysXObject* physixObject = new PhysXObject();
      physixObject->LoadModel("Models/DefaultCube/DefaultCube.fbx");
      physixObject->transform.SetPosition(glm::vec3(0, 5, 0));
-     physixObject->transform.SetScale(glm::vec3(0.25f));
+     physixObject->transform.SetRotation(glm::vec3(40, 0, 0));
+     physixObject->transform.SetScale(glm::vec3(0.5f,0.25f,0.25f));
      GraphicsRender::GetInstance().AddModelAndShader(physixObject, defaultShader);
      physixObject->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::BOX);
+     
+     PhysicsMaterial material;
+     material.dynamicFriction = 2;
+     material.bounciness = 10;
+     physixObject->collider->SetPhysicsMaterial(material);
+
+     PhysXObject* physixObject2 = new PhysXObject();
+     physixObject2->LoadModel("Models/DefaultCube/DefaultCube.fbx");
+     physixObject2->transform.SetPosition(glm::vec3(0, 2, 0));
+     physixObject2->transform.SetRotation(glm::vec3(0));
+     physixObject2->transform.SetScale(glm::vec3(2, 0.1f, 2));
+     GraphicsRender::GetInstance().AddModelAndShader(physixObject2, defaultShader);
+     physixObject2->Initialize(RigidBody::RigidBodyType::STATIC, BaseCollider::ColliderShape::BOX);
 }
 
 void ApplicationRenderer::PreRender()

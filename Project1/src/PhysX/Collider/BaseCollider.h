@@ -1,7 +1,7 @@
 #pragma once
 #include "../../Object.h"
 #include <PxShape.h>
-
+#include "../PhysicsMaterial/PhysicsMaterial.h"
 using namespace physx;
 
 class PhysXObject;
@@ -20,6 +20,7 @@ public:
 	virtual void ConstructCollider() = 0;
 	virtual void Render() = 0;
 	virtual void InitializeCollider(PhysXObject* object);
+	virtual void SetPhysicsMaterial(PhysicsMaterial& material) = 0;
 
 	virtual PxShape* GetShape() = 0;
 

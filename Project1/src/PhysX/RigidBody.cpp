@@ -99,13 +99,15 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 	{
 	case RigidBody::RigidBodyType::DYNAMIC:
 		physicsObject->rigidActor = physics->createRigidDynamic(
-			PxTransform(GLMToPxVec3(modelTransform->position)));
+			PxTransform(GLMToPxVec3(modelTransform->position), 
+				GLMToPxQuat(modelTransform->quaternionRotation)));
 
 		break;
 	case RigidBody::RigidBodyType::STATIC:
 
 		physicsObject->rigidActor = physics->createRigidStatic(
-			PxTransform(GLMToPxVec3(modelTransform->position)));
+			PxTransform(GLMToPxVec3(modelTransform->position),
+				GLMToPxQuat(modelTransform->quaternionRotation)));
 		break;
 	default:
 		break;

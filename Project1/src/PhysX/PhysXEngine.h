@@ -4,6 +4,7 @@
 #include "PhysicsMaterial/PhysicsMaterial.h"
 #include <string>
 #include <vector>
+
 using namespace physx;
 
 //static PxDefaultAllocator		gAllocator;
@@ -33,11 +34,10 @@ public:
 	void ShutDown();
 
 	void Update(float deltaTime);
+	void UpdatePhysicsRenders();
 
 	void AddPhysXObject(PhysXObject* object);
 	void RemovePhysXObject(PhysXObject* object);
-
-
 private:
 
 	PxScene* scene = NULL;
@@ -49,13 +49,10 @@ private:
     PxDefaultCpuDispatcher* dispatcher = NULL;
 	PxPvd* physXDebuggerDisplay;
 
-	const std::string host = "127.0.0.1";
-
+	PhysicsMaterial defaultPhysicsMaterial;
 	std::vector<PhysXObject*> physicsObjects;
 
-	PhysicsMaterial defaultPhysicsMaterial;
-
-
-	
+	const  static unsigned int MAXNUM_ACTOR_SHAPES = 128;
+	const std::string host = "127.0.0.1";
 };
 

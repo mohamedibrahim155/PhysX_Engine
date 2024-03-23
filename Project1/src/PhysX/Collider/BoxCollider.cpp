@@ -19,11 +19,16 @@ void BoxCollider::ConstructCollider()
 {
 	shapeType = ColliderShape::BOX;
 
-	physicsMaterial = PhysXEngine::GetInstance().GetPxPhysicsMaterial();
+	if (physicsMaterial == nullptr)
+	{
+		physicsMaterial = PhysXEngine::GetInstance().GetPxPhysicsMaterial();
+	}
 
 	boxshape = physics->createShape(
 		CreateBoxGeometryFromAABB(modelAABB), 
 		*physicsMaterial);
+
+	sizeExtents = PxVec3ToGLM(modelAABB.getDimensions() * 0.5f);
 }
 
 void BoxCollider::InitializeCollider(PhysXObject* object)
@@ -55,13 +60,28 @@ void BoxCollider::Render()
 		boxAABB.minimum += GLMToPxVec3( physicsObject->transform.position);
 		boxAABB.maximum += GLMToPxVec3(physicsObject->transform.position);
 
+
+
 		GraphicsRender::GetInstance().DrawBox(
 			PxVec3ToGLM(boxAABB.getCenter()),
 			PxVec3ToGLM(boxAABB.getDimensions() * 0.5f),
+			physicsObject->transform.rotation,
 			glm::vec4(0,1,0,1),true);
 
 	}
 }
 
+void BoxCollider::SetPhysicsMaterial(PhysicsMaterial& material)
+{
+	physicsMaterial = physics->createMaterial(material.staticFriction,
+		material.dynamicFriction, material.bounciness);
+
+	physicsMaterial->setFrictionCombineMode(PxCombineToLocal(material.frictionCombine));
+	physicsMaterial->setRestitutionCombineMode(PxCombineToLocal(material.bounceCombine));
+
+	PxMaterial* materials[] = { physicsMaterial };
+
+	boxshape->setMaterials(materials, 1);
+}
 
 

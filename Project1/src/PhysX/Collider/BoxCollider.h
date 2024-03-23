@@ -25,8 +25,8 @@ public :
 private:
 
 
-	PxMaterial* physicsMaterial;
-	PxPhysics* physics;
+	PxMaterial* physicsMaterial = nullptr;
+	PxPhysics* physics = nullptr;
 	PxShape* boxshape = nullptr;
 
 	PxBoxGeometry CreateBoxGeometryFromAABB(const PxBounds3& aabb);
@@ -36,6 +36,10 @@ private:
 
 	// Inherited via BaseCollider
 	void Render() override;
+
+
+	// Inherited via BaseCollider
+	void SetPhysicsMaterial(PhysicsMaterial& material) override;
 
 };
 
