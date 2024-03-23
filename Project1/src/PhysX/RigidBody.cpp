@@ -53,10 +53,10 @@ PxRigidStatic* RigidBody::AsStaticRigidBody()
 
 PxRigidActor* RigidBody::GetPxRigidBody()
 {
-	return pxRigidActor;
+	return physicsObject->rigidActor;
 }
 
-void RigidBody::InitilizeRigidBody(BaseCollider::ColliderShape colliderShape)
+void RigidBody::InitializeRigidBody(BaseCollider::ColliderShape colliderShape)
 {
 
 	switch (colliderShape)
@@ -86,5 +86,32 @@ void RigidBody::InitilizeRigidBody(BaseCollider::ColliderShape colliderShape)
 	}
 
 	pxRigidActor->attachShape(*collider->GetShape());
+}
+
+void RigidBody::InitializeRigidBody(PhysXObject* object)
+{
+	physicsObject = object;
+	modelTransform = &physicsObject->transform;
+
+	pxRigidActor = physicsObject->rigidActor;
+
+	switch (rigidBodyType)
+	{
+	case RigidBody::RigidBodyType::DYNAMIC:
+		physicsObject->rigidActor = physics->createRigidDynamic(
+			PxTransform(GLMToPxVec3(modelTransform->position)));
+
+		break;
+	case RigidBody::RigidBodyType::STATIC:
+
+		physicsObject->rigidActor = physics->createRigidStatic(
+			PxTransform(GLMToPxVec3(modelTransform->position)));
+		break;
+	default:
+		break;
+	}
+
+	physicsObject->rigidActor->attachShape(*physicsObject->collider->GetShape());
+
 }
 

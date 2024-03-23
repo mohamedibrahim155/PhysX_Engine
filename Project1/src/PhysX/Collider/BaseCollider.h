@@ -6,7 +6,7 @@ using namespace physx;
 
 class PhysXObject;
 class BoxCollider;
-
+class Transform;
 class BaseCollider
 {
 public:
@@ -18,6 +18,9 @@ public:
 	};
 
 	virtual void ConstructCollider() = 0;
+	virtual void DrawRender() = 0;
+	virtual void InitializeCollider(PhysXObject* object);
+
 	virtual PxShape* GetShape() = 0;
 
 	ColliderShape shapeType;
@@ -25,8 +28,15 @@ public:
 
 	BoxCollider* AsBoxCollider();
 
-	PhysXObject* physicsObject;
 	PxShape* shape = nullptr;
-	//Transform* physXTransform;
+	PhysXObject* physicsObject;
+	Transform* physXTransform;
+
+	PxBounds3 modelAABB;
+
+private:
+
+	PxBounds3 CalculatePxModelAABB();
+
 };
 

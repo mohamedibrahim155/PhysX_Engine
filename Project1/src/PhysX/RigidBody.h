@@ -7,6 +7,8 @@
 using namespace physx;
 
 class PhysXObject;
+class Transform;
+
 class RigidBody
 {
 public:
@@ -27,7 +29,7 @@ public:
 	BaseCollider* collider;
 	RigidBodyType rigidBodyType;
 
-	void InitilizeRigidBody(BaseCollider::ColliderShape colliderShape);
+	void InitializeRigidBody(BaseCollider::ColliderShape colliderShape);
 	void InitializeRigidBody(PhysXObject* object);
 	void SetRigidBodyType(RigidBodyType type); 
 	void SetDrag(float drag);
@@ -41,5 +43,6 @@ private:
 	PxPhysics* physics;
 	PxTransform pxTransform;
 	PhysXObject* physicsObject;
+	Transform* modelTransform;
 };
 

@@ -23,13 +23,13 @@ public:
 
 	RigidBody* GetRigidBody();
 
-
-private:
-
 	PxRigidActor* rigidActor;
-
 	BaseCollider* collider;
 	RigidBody* rigidBody;
+private:
+
+
+	
 
 };
 

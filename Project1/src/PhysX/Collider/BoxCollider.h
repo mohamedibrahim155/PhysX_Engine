@@ -18,6 +18,7 @@ public :
 
 	// Inherited via BaseCollider
     void ConstructCollider() override;
+    void InitializeCollider(PhysXObject* object) override;
 	PxShape* GetShape() override;
 
 
@@ -28,8 +29,13 @@ private:
 	PxPhysics* physics;
 	PxShape* boxshape = nullptr;
 
+	PxBoxGeometry CreateBoxGeometryFromAABB(const PxBounds3& aabb);
 
 	
+
+
+	// Inherited via BaseCollider
+	void DrawRender() override;
 
 };
 

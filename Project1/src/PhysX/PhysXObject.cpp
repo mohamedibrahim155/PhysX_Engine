@@ -13,13 +13,22 @@ void PhysXObject::Initialize(RigidBody::RigidBodyType bodyType, BaseCollider::Co
 	rigidBody = new RigidBody();
 
 	
-   rigidBody->SetRigidBodyType(bodyType);
+	switch (colliderShape)
+	{
+	case BaseCollider::ColliderShape::NONE:
+		break;
+	case BaseCollider::ColliderShape::BOX:
+		collider = new BoxCollider();
+		break;
+	case BaseCollider::ColliderShape::SPHERE:
+		break;
+	}
 
-	rigidBody->SetPosition(transform.position);
+	collider->InitializeCollider(this);
 
-	rigidBody->InitilizeRigidBody(colliderShape);
+    rigidBody->SetRigidBodyType(bodyType);
 
-
+	rigidBody->InitializeRigidBody(this);
 
 	PhysXEngine::GetInstance().AddPhysXObject(this);
 
@@ -45,6 +54,10 @@ void PhysXObject::Update(float deltaTime)
 
 void PhysXObject::Render()
 {
+	if (collider)
+	{
+		collider->DrawRender();
+	}
 }
 
 void PhysXObject::OnDestroy()
