@@ -21,10 +21,12 @@ public:
 	virtual void Render() = 0;
 	virtual void InitializeCollider(PhysXObject* object);
 	virtual void SetPhysicsMaterial(PhysicsMaterial& material) = 0;
+	virtual void SetCentreOffset(const glm::vec3& offsetValue);
 
 	virtual PxShape* GetShape() = 0;
 	virtual glm::vec3 GetPosition();
-	virtual void SetCentreOffset(const glm::vec3& offsetValue);
+	virtual glm::vec3 GetOffsetPosition();
+	virtual glm::quat GetRotation();
 
 	ColliderShape shapeType;
 

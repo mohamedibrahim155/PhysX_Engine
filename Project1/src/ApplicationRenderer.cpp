@@ -223,10 +223,10 @@ void ApplicationRenderer::Start()
      physixObject->LoadModel("Models/DefaultCube/DefaultCube.fbx");
      physixObject->transform.SetPosition(glm::vec3(0, 5, 0));
      physixObject->transform.SetRotation(glm::vec3(10, 0, 0));
-     //physixObject->transform.SetScale(glm::vec3(0.5f,0.25f,0.25f));
+     physixObject->transform.SetScale(glm::vec3(0.5f,0.25f,0.25f));
      GraphicsRender::GetInstance().AddModelAndShader(physixObject, defaultShader);
      physixObject->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::BOX);
-     physixObject->collider->SetCentreOffset(glm::vec3(0, 2, 0));
+     physixObject->collider->SetCentreOffset(glm::vec3(0, 1, 0));
      //PhysicsMaterial material;
      //material.dynamicFriction = 2;
      //material.bounciness = 1;

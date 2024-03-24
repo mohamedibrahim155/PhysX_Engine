@@ -68,7 +68,7 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 		       GLMToPxQuat(modelTransform->quaternionRotation));*/
 
 	PxTransform transform(GLMToPxVec3(collider->GetPosition()),
-		GLMToPxQuat(modelTransform->quaternionRotation));
+		GLMToPxQuat(collider->GetRotation()));
 
 	switch (rigidBodyType)
 	{

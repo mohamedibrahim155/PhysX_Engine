@@ -176,14 +176,14 @@ void PhysXEngine::UpdatePhysicsRenders()
 				const PxTransform shapePose = PxShapeExt::getGlobalPose(*shapes[j], *actor);
 
 				const PxVec3 translation = shapePose.p;
-				const PxQuat rotation = shapePose.q;
+				const PxQuat pxRotation = shapePose.q;
 
-				glm::quat glmRotation = PxQuatToGLM(rotation);
 				glm::vec3 position = PxVec3ToGLM(translation);
+				glm::quat rotation = PxQuatToGLM(pxRotation);
 
 
-				physObject->transform.SetPosition(position - physObject->collider->offsetPosition);
-				physObject->transform.SetQuatRotation(glmRotation);
+				physObject->transform.SetPosition(position - physObject->collider->GetOffsetPosition());
+				physObject->transform.SetQuatRotation(rotation);
 
 			}
 

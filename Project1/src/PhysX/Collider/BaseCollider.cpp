@@ -28,6 +28,16 @@ glm::vec3 BaseCollider::GetPosition()
 	return physXTransform->position + offsetPosition;
 }
 
+glm::vec3 BaseCollider::GetOffsetPosition()
+{
+	return offsetPosition;
+}
+
+glm::quat BaseCollider::GetRotation()
+{
+	return physXTransform->quaternionRotation;
+}
+
 void BaseCollider::SetCentreOffset(const glm::vec3& offsetValue)
 {
 	offsetPosition = offsetValue;
