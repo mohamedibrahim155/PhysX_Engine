@@ -225,7 +225,7 @@ void ApplicationRenderer::Start()
      physixObject->transform.SetRotation(glm::vec3(10, 0, 0));
      physixObject->transform.SetScale(glm::vec3(0.5f,0.25f,0.25f));
      GraphicsRender::GetInstance().AddModelAndShader(physixObject, defaultShader);
-     physixObject->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::BOX);
+     physixObject->Initialize(RigidBody::RigidBodyType::KINEMATIC, BaseCollider::ColliderShape::BOX);
      physixObject->collider->SetCentreOffset(glm::vec3(0, 1, 0));
      //PhysicsMaterial material;
      //material.dynamicFriction = 2;
@@ -250,6 +250,7 @@ void ApplicationRenderer::Start()
      GraphicsRender::GetInstance().AddModelAndShader(physixObject3, defaultShader);
      physixObject3->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::SPHERE);
      physixObject3->collider->AsSphereCollider()->SetRadius(1);
+
 
 }
 

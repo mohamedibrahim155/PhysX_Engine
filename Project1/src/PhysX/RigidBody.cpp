@@ -29,6 +29,18 @@ void RigidBody::SetMass(float mass)
 	((PxRigidDynamic*)rigidActor)->setMass(mass);
 }
 
+void RigidBody::SetKinematic(bool isKinematic)
+{
+	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
+	{
+		dynamicActor->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
+		if (!isKinematic)
+		{
+			dynamicActor->wakeUp();
+		}
+	}
+}
+
 void RigidBody::SetVelocity(const glm::vec3& velocity)
 {
 	AsDynamicRigidBody()->setLinearVelocity(GLMToPxVec3(velocity));
@@ -80,8 +92,9 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 
 		rigidActor = physics->createRigidStatic(transform);
 		break;
-	default:
-		break;
+	case RigidBody::RigidBodyType::KINEMATIC:
+		rigidActor = physics->createRigidDynamic(transform);
+	    SetKinematic(true);
 	}
 
 	if (rigidActor)

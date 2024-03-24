@@ -57,3 +57,4 @@ RigidBody* PhysXObject::GetRigidBody()
 {
 	return rigidBody;
 }
+

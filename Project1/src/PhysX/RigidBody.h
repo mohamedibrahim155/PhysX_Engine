@@ -18,6 +18,7 @@ public:
 	{
 		DYNAMIC,
 		STATIC,
+		KINEMATIC
 	};
 	RigidBody();
 	~RigidBody();
@@ -34,6 +35,7 @@ public:
 	void SetRigidBodyType(RigidBodyType type); 
 	void SetDrag(float drag);
 	void SetMass(float mass);
+	void SetKinematic(bool isKinematic);
 	void SetVelocity(const glm::vec3& velocity);
 	void SetPosition(glm::vec3 position);
 
@@ -44,5 +46,7 @@ private:
 	PxTransform pxTransform;
 	PhysXObject* physicsObject;
 	Transform* modelTransform;
+
+	bool isKinematic = false;
 };
 
