@@ -3,6 +3,7 @@
 #include <PxRigidDynamic.h>
 #include <PxRigidStatic.h>
 #include "Collider/BoxCollider.h"
+#include "Collider/SphereCollider.h"
 #include <PxPhysics.h>
 using namespace physx;
 
@@ -29,7 +30,6 @@ public:
 	BaseCollider* collider;
 	RigidBodyType rigidBodyType;
 
-	void InitializeRigidBody(BaseCollider::ColliderShape colliderShape);
 	void InitializeRigidBody(PhysXObject* object);
 	void SetRigidBodyType(RigidBodyType type); 
 	void SetDrag(float drag);
@@ -39,7 +39,7 @@ public:
 
 private:
 
-	PxRigidActor* pxRigidActor;
+	PxRigidActor* rigidActor;
 	PxPhysics* physics;
 	PxTransform pxTransform;
 	PhysXObject* physicsObject;

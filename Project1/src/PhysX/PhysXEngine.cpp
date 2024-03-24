@@ -117,6 +117,8 @@ void PhysXEngine::UpdatePhysicsRenders()
 
 				actors[i]->getShapes(shapes, nbShapes);
 
+
+				
 				for (PxU32 j = 0; j < nbShapes; j++)
 				{
 					const PxTransform shapePose = PxShapeExt::getGlobalPose(*shapes[j], *actors[i]);
@@ -128,10 +130,11 @@ void PhysXEngine::UpdatePhysicsRenders()
 					glm::quat glmRotation = PxQuatToGLM(rotation);
 					glm::vec3 position = PxVec3ToGLM(translation);
 
-
-					physXObject->transform.SetPosition(position);
-					physXObject->transform.SetQuatRotation(glmRotation);
-
+					if (actors[i]->userData == physXObject)
+					{
+						physXObject->transform.SetPosition(position);
+						physXObject->transform.SetQuatRotation(glmRotation);
+					}
 				}
 			}
 

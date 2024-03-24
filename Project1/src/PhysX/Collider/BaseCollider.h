@@ -1,18 +1,18 @@
 #pragma once
-#include "../../Object.h"
 #include <PxShape.h>
+#include "glm/glm.hpp"
 #include "../PhysicsMaterial/PhysicsMaterial.h"
 using namespace physx;
 
 class PhysXObject;
 class BoxCollider;
+class SphereCollider;
 class Transform;
 class BaseCollider
 {
 public:
 	enum class ColliderShape
 	{
-		NONE = -1,
 		BOX = 0,
 		SPHERE = 1
 	};
@@ -28,7 +28,7 @@ public:
 
 
 	BoxCollider* AsBoxCollider();
-
+	SphereCollider* AsSphereCollider();
 	PxShape* shape = nullptr;
 	PhysXObject* physicsObject;
 	Transform* physXTransform;

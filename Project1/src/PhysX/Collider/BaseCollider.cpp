@@ -1,5 +1,6 @@
 #include "BaseCollider.h"
 #include "BoxCollider.h"
+#include "SphereCollider.h"
 #include "../PhysXObject.h"
 #include "../PhysXUtils.h"
 
@@ -25,6 +26,11 @@ void BaseCollider::InitializeCollider(PhysXObject* object)
 BoxCollider* BaseCollider::AsBoxCollider()
 {
 	return (BoxCollider*)this;
+}
+
+SphereCollider* BaseCollider::AsSphereCollider()
+{
+	return (SphereCollider*)this;
 }
 
 PxBounds3 BaseCollider::CalculatePxModelAABB()

@@ -8,9 +8,9 @@ RigidBody::RigidBody()
 
 RigidBody::~RigidBody()
 {
-	if (pxRigidActor)
+	if (rigidActor)
 	{
-		pxRigidActor->release();
+		rigidActor->release();
 	}
 }
 
@@ -26,7 +26,7 @@ void RigidBody::SetDrag(float drag)
 
 void RigidBody::SetMass(float mass)
 {
-	((PxRigidDynamic*)pxRigidActor)->setMass(mass);
+	((PxRigidDynamic*)rigidActor)->setMass(mass);
 }
 
 void RigidBody::SetVelocity(const glm::vec3& velocity)
@@ -42,12 +42,12 @@ void RigidBody::SetPosition(glm::vec3 position)
 
 PxRigidDynamic* RigidBody::AsDynamicRigidBody()
 {
-	return (PxRigidDynamic*)pxRigidActor;
+	return (PxRigidDynamic*)rigidActor;
 }
 
 PxRigidStatic* RigidBody::AsStaticRigidBody()
 {
-	return (PxRigidStatic*)pxRigidActor;
+	return (PxRigidStatic*)rigidActor;
 
 }
 
@@ -56,56 +56,25 @@ PxRigidActor* RigidBody::GetPxRigidBody()
 	return physicsObject->rigidActor;
 }
 
-void RigidBody::InitializeRigidBody(BaseCollider::ColliderShape colliderShape)
-{
-
-	switch (colliderShape)
-	{
-	case BaseCollider::ColliderShape::NONE:
-		break;
-	case BaseCollider::ColliderShape::BOX:
-		collider = new BoxCollider();
-		break;
-	case BaseCollider::ColliderShape::SPHERE:
-		break;
-	default:
-		break;
-	}
-
-	collider->ConstructCollider();
-
-	switch (rigidBodyType)
-	{
-	case RigidBody::RigidBodyType::DYNAMIC:
-
-		pxRigidActor = physics->createRigidDynamic(pxTransform);
-		break;
-	case RigidBody::RigidBodyType::STATIC:
-		pxRigidActor = physics->createRigidStatic(pxTransform);
-		break;
-	}
-
-	pxRigidActor->attachShape(*collider->GetShape());
-}
 
 void RigidBody::InitializeRigidBody(PhysXObject* object)
 {
 	physicsObject = object;
-	modelTransform = &physicsObject->transform;
-
-	pxRigidActor = physicsObject->rigidActor;
+	modelTransform = &object->transform;
+	rigidActor = object->rigidActor;
+	collider = object->collider;
 
 	switch (rigidBodyType)
 	{
 	case RigidBody::RigidBodyType::DYNAMIC:
-		physicsObject->rigidActor = physics->createRigidDynamic(
+		rigidActor = physics->createRigidDynamic(
 			PxTransform(GLMToPxVec3(modelTransform->position), 
 				GLMToPxQuat(modelTransform->quaternionRotation)));
 
 		break;
 	case RigidBody::RigidBodyType::STATIC:
 
-		physicsObject->rigidActor = physics->createRigidStatic(
+		rigidActor = physics->createRigidStatic(
 			PxTransform(GLMToPxVec3(modelTransform->position),
 				GLMToPxQuat(modelTransform->quaternionRotation)));
 		break;
@@ -113,9 +82,16 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 		break;
 	}
 
-	physicsObject->rigidActor->attachShape(*physicsObject->collider->GetShape());
+	if (rigidActor)
+	{
+		rigidActor->userData = object;
 
-	PhysXEngine::GetInstance().GetPhysicsScene()->addActor(*physicsObject->rigidActor);
+		rigidActor->attachShape(*collider->GetShape());
+		PhysXEngine::GetInstance().GetPhysicsScene()->addActor(*rigidActor);
+
+	}
+	
+
 
 
 }

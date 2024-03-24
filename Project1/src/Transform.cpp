@@ -4,7 +4,7 @@
 
 Transform::Transform() : position{ glm::vec3(0) }, rotation{ glm::vec3(0) }, scale{ glm::vec3(1.0f) }
 {
-
+    quaternionRotation = glm::quat(1, 0, 0, 0);
 }
 
 Transform::Transform(const Transform& transform)

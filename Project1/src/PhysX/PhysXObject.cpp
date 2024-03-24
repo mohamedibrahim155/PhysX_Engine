@@ -15,12 +15,12 @@ void PhysXObject::Initialize(RigidBody::RigidBodyType bodyType, BaseCollider::Co
 	
 	switch (colliderShape)
 	{
-	case BaseCollider::ColliderShape::NONE:
-		break;
+
 	case BaseCollider::ColliderShape::BOX:
 		collider = new BoxCollider();
 		break;
 	case BaseCollider::ColliderShape::SPHERE:
+		collider = new SphereCollider();
 		break;
 	}
 
@@ -28,11 +28,7 @@ void PhysXObject::Initialize(RigidBody::RigidBodyType bodyType, BaseCollider::Co
 
     rigidBody->SetRigidBodyType(bodyType);
 
-	//rigidBody->InitializeRigidBody(this);
-
-
 	PhysXEngine::GetInstance().AddPhysXObject(this);
-
 }
 
 void PhysXObject::DrawProperties()
@@ -45,13 +41,7 @@ void PhysXObject::SceneDraw()
 	Model::SceneDraw();
 }
 
-void PhysXObject::Start()
-{
-}
 
-void PhysXObject::Update(float deltaTime)
-{
-}
 
 void PhysXObject::Render()
 {
@@ -61,9 +51,7 @@ void PhysXObject::Render()
 	}
 }
 
-void PhysXObject::OnDestroy()
-{
-}
+
 
 RigidBody* PhysXObject::GetRigidBody()
 {
