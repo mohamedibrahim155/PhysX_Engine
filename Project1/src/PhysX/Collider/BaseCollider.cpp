@@ -23,6 +23,16 @@ void BaseCollider::InitializeCollider(PhysXObject* object)
 	
 }
 
+glm::vec3 BaseCollider::GetPosition()
+{
+	return physXTransform->position + offsetPosition;
+}
+
+void BaseCollider::SetCentreOffset(const glm::vec3& offsetValue)
+{
+	offsetPosition = offsetValue;
+}
+
 BoxCollider* BaseCollider::AsBoxCollider()
 {
 	return (BoxCollider*)this;

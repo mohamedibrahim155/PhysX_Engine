@@ -64,19 +64,21 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 	rigidActor = object->rigidActor;
 	collider = object->collider;
 
+	/*PxTransform transform(GLMToPxVec3(modelTransform->position),
+		       GLMToPxQuat(modelTransform->quaternionRotation));*/
+
+	PxTransform transform(GLMToPxVec3(collider->GetPosition()),
+		GLMToPxQuat(modelTransform->quaternionRotation));
+
 	switch (rigidBodyType)
 	{
 	case RigidBody::RigidBodyType::DYNAMIC:
-		rigidActor = physics->createRigidDynamic(
-			PxTransform(GLMToPxVec3(modelTransform->position), 
-				GLMToPxQuat(modelTransform->quaternionRotation)));
+		rigidActor = physics->createRigidDynamic(transform);
 
 		break;
 	case RigidBody::RigidBodyType::STATIC:
 
-		rigidActor = physics->createRigidStatic(
-			PxTransform(GLMToPxVec3(modelTransform->position),
-				GLMToPxQuat(modelTransform->quaternionRotation)));
+		rigidActor = physics->createRigidStatic(transform);
 		break;
 	default:
 		break;

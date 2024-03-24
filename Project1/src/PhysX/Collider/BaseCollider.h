@@ -23,6 +23,8 @@ public:
 	virtual void SetPhysicsMaterial(PhysicsMaterial& material) = 0;
 
 	virtual PxShape* GetShape() = 0;
+	virtual glm::vec3 GetPosition();
+	virtual void SetCentreOffset(const glm::vec3& offsetValue);
 
 	ColliderShape shapeType;
 
@@ -34,6 +36,8 @@ public:
 	Transform* physXTransform;
 
 	PxBounds3 modelAABB;
+
+	glm::vec3 offsetPosition =  glm::vec3(0);
 
 private:
 

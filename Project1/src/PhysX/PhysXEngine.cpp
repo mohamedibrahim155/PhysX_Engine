@@ -132,7 +132,7 @@ void PhysXEngine::UpdatePhysicsRenders()
 
 					if (actors[i]->userData == physXObject)
 					{
-						physXObject->transform.SetPosition(position);
+						physXObject->transform.SetPosition(position -  physXObject->collider->offsetPosition);
 						physXObject->transform.SetQuatRotation(glmRotation);
 					}
 				}

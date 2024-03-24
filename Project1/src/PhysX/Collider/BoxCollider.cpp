@@ -79,8 +79,8 @@ void BoxCollider::Render()
 	{
 		PxBounds3 boxAABB = modelAABB;
 
-		boxAABB.minimum += GLMToPxVec3( physicsObject->transform.position);
-		boxAABB.maximum += GLMToPxVec3(physicsObject->transform.position);
+		boxAABB.minimum += GLMToPxVec3(GetPosition());
+		boxAABB.maximum += GLMToPxVec3(GetPosition());
 
 		PxVec3 extends = GLMToPxVec3(sizeExtents);
 
