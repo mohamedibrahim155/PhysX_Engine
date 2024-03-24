@@ -91,58 +91,108 @@ void PhysXEngine::Update(float deltaTime)
 
 void PhysXEngine::UpdatePhysicsRenders()
 {
-	for (PhysXObject* physXObject : physicsObjects)
+#pragma region Old
+
+
+
+	//for (PhysXObject* physXObject : physicsObjects)
+	//{
+	//	if (physXObject->rigidBody->rigidBodyType == RigidBody::RigidBodyType::STATIC)
+	//	{
+	//		continue;
+	//	}
+
+	//	PxU32 nbActors = scene->getNbActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC);
+
+	//	if (nbActors)
+	//	{
+	//		std::vector<PxRigidActor*> actors(nbActors);
+	//		scene->getActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC, reinterpret_cast<PxActor**>(&actors[0]), nbActors);
+
+
+	//		PxShape* shapes[MAXNUM_ACTOR_SHAPES];
+
+	//		const PxU32 numActors = actors.size();
+
+	//		for (PxU32 i = 0; i < numActors; i++)
+	//		{
+	//			const PxU32 nbShapes = actors[i]->getNbShapes();
+	//			PX_ASSERT(nbShapes <= MAX_NUM_ACTOR_SHAPES);
+
+	//			actors[i]->getShapes(shapes, nbShapes);
+
+
+	//			
+	//			for (PxU32 j = 0; j < nbShapes; j++)
+	//			{
+	//				const PxTransform shapePose = PxShapeExt::getGlobalPose(*shapes[j], *actors[i]);
+
+
+	//				const PxVec3 translation = shapePose.p;
+	//				const PxQuat rotation = shapePose.q;
+
+	//				glm::quat glmRotation = PxQuatToGLM(rotation);
+	//				glm::vec3 position = PxVec3ToGLM(translation);
+
+	//				if (actors[i]->userData == physXObject)
+	//				{
+	//					physXObject->transform.SetPosition(position -  physXObject->collider->offsetPosition);
+	//					physXObject->transform.SetQuatRotation(glmRotation);
+	//				}
+	//			}
+	//		}
+
+
+
+	//	}
+
+	//}
+#pragma endregion
+
+	PxU32 nbActors = scene->getNbActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC);
+
+	if (nbActors)
 	{
-		if (physXObject->rigidBody->rigidBodyType == RigidBody::RigidBodyType::STATIC)
+		std::vector<PxRigidActor*> actors(nbActors);
+		scene->getActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC, reinterpret_cast<PxActor**>(&actors[0]), nbActors);
+
+		PxShape* shapes[MAXNUM_ACTOR_SHAPES];
+
+		const PxU32 numActors = actors.size();
+
+		for (PxRigidActor* actor : actors)
 		{
-			continue;
-		}
+			if (actor->userData == nullptr) continue;
 
-		PxU32 nbActors = scene->getNbActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC);
+			PhysXObject* physObject = (PhysXObject*)actor->userData;
 
-		if (nbActors)
-		{
-			std::vector<PxRigidActor*> actors(nbActors);
-			scene->getActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC, reinterpret_cast<PxActor**>(&actors[0]), nbActors);
+			const PxU32 nbShapes = actor->getNbShapes();
+			PX_ASSERT(nbShapes <= MAX_NUM_ACTOR_SHAPES);
 
+			actor->getShapes(shapes, nbShapes);
 
-			PxShape* shapes[MAXNUM_ACTOR_SHAPES];
-
-			const PxU32 numActors = actors.size();
-
-			for (PxU32 i = 0; i < numActors; i++)
+			for (PxU32 j = 0; j < nbShapes; j++)
 			{
-				const PxU32 nbShapes = actors[i]->getNbShapes();
-				PX_ASSERT(nbShapes <= MAX_NUM_ACTOR_SHAPES);
+				const PxTransform shapePose = PxShapeExt::getGlobalPose(*shapes[j], *actor);
 
-				actors[i]->getShapes(shapes, nbShapes);
+				const PxVec3 translation = shapePose.p;
+				const PxQuat rotation = shapePose.q;
 
-
-				
-				for (PxU32 j = 0; j < nbShapes; j++)
-				{
-					const PxTransform shapePose = PxShapeExt::getGlobalPose(*shapes[j], *actors[i]);
+				glm::quat glmRotation = PxQuatToGLM(rotation);
+				glm::vec3 position = PxVec3ToGLM(translation);
 
 
-					const PxVec3 translation = shapePose.p;
-					const PxQuat rotation = shapePose.q;
+				physObject->transform.SetPosition(position - physObject->collider->offsetPosition);
+				physObject->transform.SetQuatRotation(glmRotation);
 
-					glm::quat glmRotation = PxQuatToGLM(rotation);
-					glm::vec3 position = PxVec3ToGLM(translation);
-
-					if (actors[i]->userData == physXObject)
-					{
-						physXObject->transform.SetPosition(position -  physXObject->collider->offsetPosition);
-						physXObject->transform.SetQuatRotation(glmRotation);
-					}
-				}
 			}
 
-
-
 		}
 
+		
 	}
+
+	
 }
 
 void PhysXEngine::AddPhysXObject(PhysXObject* object)
