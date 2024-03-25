@@ -13,9 +13,9 @@ public:
 
 	void Initialize(RigidBody::RigidBodyType bodyType , BaseCollider::ColliderShape colliderShape);
 
-	 void DrawProperties()override;
-	 void SceneDraw()override;
-	 void Render()override;
+	void DrawProperties()override;
+	void SceneDraw()override;
+	void Render()override;
 
 	RigidBody* GetRigidBody();
 

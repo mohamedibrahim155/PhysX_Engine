@@ -36,6 +36,7 @@ public:
 	void SetDrag(float drag);
 	void SetMass(float mass);
 	void SetKinematic(bool isKinematic);
+	void SetGravity(bool useGravity);
 	void SetVelocity(const glm::vec3& velocity);
 	void SetPosition(glm::vec3 position);
 
@@ -48,5 +49,9 @@ private:
 	Transform* modelTransform;
 
 	bool isKinematic = false;
+	bool useGravity = true;
+
+	void UpdateGravity(bool gravity);
+	void UpdateKinematic(bool isKinematic);
 };
 

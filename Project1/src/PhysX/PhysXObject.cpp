@@ -6,6 +6,19 @@ PhysXObject::PhysXObject()
 
 PhysXObject::~PhysXObject()
 {
+	if (rigidBody)
+	{
+		delete rigidBody;
+	}
+	if (collider)
+	{
+		delete collider;
+	}
+
+	if (rigidActor)
+	{
+		rigidActor->release();
+	}
 }
 
 void PhysXObject::Initialize(RigidBody::RigidBodyType bodyType, BaseCollider::ColliderShape colliderShape)

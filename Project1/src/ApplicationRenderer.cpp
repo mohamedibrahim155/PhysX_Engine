@@ -227,6 +227,7 @@ void ApplicationRenderer::Start()
      GraphicsRender::GetInstance().AddModelAndShader(physixObject, defaultShader);
      physixObject->Initialize(RigidBody::RigidBodyType::KINEMATIC, BaseCollider::ColliderShape::BOX);
      physixObject->collider->SetCentreOffset(glm::vec3(0, 1, 0));
+     physixObject->rigidBody->SetGravity(false);
      //PhysicsMaterial material;
      //material.dynamicFriction = 2;
      //material.bounciness = 1;

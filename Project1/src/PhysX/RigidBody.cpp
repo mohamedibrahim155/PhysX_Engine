@@ -14,6 +14,22 @@ RigidBody::~RigidBody()
 	}
 }
 
+PxRigidDynamic* RigidBody::AsDynamicRigidBody()
+{
+	return (PxRigidDynamic*)rigidActor;
+}
+
+PxRigidStatic* RigidBody::AsStaticRigidBody()
+{
+	return (PxRigidStatic*)rigidActor;
+
+}
+
+PxRigidActor* RigidBody::GetPxRigidBody()
+{
+	return physicsObject->rigidActor;
+}
+
 void RigidBody::SetRigidBodyType(RigidBodyType type)
 {
 	rigidBodyType = type;
@@ -31,14 +47,13 @@ void RigidBody::SetMass(float mass)
 
 void RigidBody::SetKinematic(bool isKinematic)
 {
-	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
-	{
-		dynamicActor->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
-		if (!isKinematic)
-		{
-			dynamicActor->wakeUp();
-		}
-	}
+	this->isKinematic = isKinematic;
+
+}
+
+void RigidBody::SetGravity(bool useGravity)
+{
+	this->useGravity = useGravity;
 }
 
 void RigidBody::SetVelocity(const glm::vec3& velocity)
@@ -52,21 +67,32 @@ void RigidBody::SetPosition(glm::vec3 position)
 	pxTransform = localTm;
 }
 
-PxRigidDynamic* RigidBody::AsDynamicRigidBody()
+void RigidBody::UpdateGravity(bool gravity)
 {
-	return (PxRigidDynamic*)rigidActor;
+	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
+	{
+		dynamicActor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, !gravity);
+
+		if (!gravity)
+		{
+			dynamicActor->wakeUp();
+		}
+	}
 }
 
-PxRigidStatic* RigidBody::AsStaticRigidBody()
+void RigidBody::UpdateKinematic(bool isKinematic)
 {
-	return (PxRigidStatic*)rigidActor;
-
+	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
+	{
+		dynamicActor->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
+		if (!isKinematic)
+		{
+			dynamicActor->wakeUp();
+		}
+	}
 }
 
-PxRigidActor* RigidBody::GetPxRigidBody()
-{
-	return physicsObject->rigidActor;
-}
+
 
 
 void RigidBody::InitializeRigidBody(PhysXObject* object)
@@ -86,7 +112,7 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 	{
 	case RigidBody::RigidBodyType::DYNAMIC:
 		rigidActor = physics->createRigidDynamic(transform);
-
+		UpdateGravity(useGravity);
 		break;
 	case RigidBody::RigidBodyType::STATIC:
 
@@ -94,7 +120,8 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 		break;
 	case RigidBody::RigidBodyType::KINEMATIC:
 		rigidActor = physics->createRigidDynamic(transform);
-	    SetKinematic(true);
+		UpdateGravity(useGravity);
+	    UpdateKinematic(isKinematic);
 	}
 
 	if (rigidActor)
