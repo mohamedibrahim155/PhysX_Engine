@@ -115,17 +115,19 @@ PxCapsuleGeometry CapsuleCollider::createCapsuleGeomentryFromAABB(const PxBounds
 
     halfHeight = height * 0.5f;
     // Create the capsule geometry
-    PxCapsuleGeometry capsule(radius, halfHeight);
+    capsule.radius = radius;
+    capsule.halfHeight = halfHeight;
 
 
-    return PxCapsuleGeometry(capsule);
+    return capsule;
 }
 
 void CapsuleCollider::SetCapsuleShape(float radius, float halfHeight)
 {
     if (capsuleShape)
     {
-        ((PxCapsuleGeometry*)capsuleShape)->radius = radius;
-        ((PxCapsuleGeometry*)capsuleShape)->halfHeight = halfHeight;
+        capsule.radius = radius;
+        capsule.halfHeight = halfHeight;
+        capsuleShape->setGeometry(capsule);
     }
 }

@@ -77,11 +77,11 @@ void SphereCollider::SetRadius(float radius)
 {
 	this->radius = radius;
 
-	;
+	PxSphereGeometry sphere(radius);
 
 	if (sphereShape)
 	{
-		((PxSphereGeometry*)sphereShape)->radius = radius;
+		sphereShape->setGeometry(sphere);
 	}
 }
 

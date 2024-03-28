@@ -251,7 +251,8 @@ void ApplicationRenderer::Start()
     // physixObject->transform.SetScale(glm::vec3(0.5f, 0.25f, 0.25f));
      GraphicsRender::GetInstance().AddModelAndShader(physixObject3, defaultShader);
      physixObject3->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::CAPSULE);
-     //physixObject3->collider->AsSphereCollider()->SetRadius(1);
+  /*   physixObject3->collider->AsCapsuleCollider()->SetRadius(0.5f);
+     physixObject3->collider->AsCapsuleCollider()->SetHalfLength(5);*/
 
 
 }

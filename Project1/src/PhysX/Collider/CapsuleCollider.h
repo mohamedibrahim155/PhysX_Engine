@@ -29,5 +29,7 @@ private:
 	PxCapsuleGeometry createCapsuleGeomentryFromAABB(const PxBounds3& aabb);
 	void SetCapsuleShape(float radius, float halfHeight);
 
+	PxCapsuleGeometry capsule;
+
 };
 
