@@ -4,6 +4,7 @@
 #include <PxRigidStatic.h>
 #include "Collider/BoxCollider.h"
 #include "Collider/SphereCollider.h"
+#include "Collider/CapsuleCollider.h"
 #include <PxPhysics.h>
 using namespace physx;
 
@@ -40,6 +41,7 @@ public:
 	void SetVelocity(const glm::vec3& velocity);
 	void SetPosition(glm::vec3 position);
 
+	bool IsRigidBodyIntialized() const { return isRigidBodyInitilized; };
 private:
 
 	PxRigidActor* rigidActor;
@@ -50,7 +52,7 @@ private:
 
 	bool isKinematic = false;
 	bool useGravity = true;
-
+	bool isRigidBodyInitilized = false;
 	void UpdateGravity(bool gravity);
 	void UpdateKinematic(bool isKinematic);
 };

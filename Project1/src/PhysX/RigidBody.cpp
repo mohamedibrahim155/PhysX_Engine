@@ -11,6 +11,7 @@ RigidBody::~RigidBody()
 	if (rigidActor)
 	{
 		rigidActor->release();
+		isRigidBodyInitilized = false;
 	}
 }
 
@@ -99,7 +100,6 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 {
 	physicsObject = object;
 	modelTransform = &object->transform;
-	rigidActor = object->rigidActor;
 	collider = object->collider;
 
 	/*PxTransform transform(GLMToPxVec3(modelTransform->position),
@@ -129,12 +129,17 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 		rigidActor->userData = object;
 
 		rigidActor->attachShape(*collider->GetShape());
+
+		//rigidActor->setGlobalPose(transform);
+
+		object->rigidActor = rigidActor;
+
 		PhysXEngine::GetInstance().GetPhysicsScene()->addActor(*rigidActor);
 
 	}
 	
 
-
+	isRigidBodyInitilized = true;
 
 }
 

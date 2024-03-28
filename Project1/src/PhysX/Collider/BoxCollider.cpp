@@ -28,7 +28,8 @@ void BoxCollider::ConstructCollider()
 		CreateBoxGeometryFromAABB(modelAABB), 
 		*physicsMaterial);
 
-//	sizeExtents = PxVec3ToGLM(modelAABB.getDimensions() * 0.5f);
+	boxshape->setLocalPose(GetLocalShapeTransfom());
+
 }
 
 void BoxCollider::InitializeCollider(PhysXObject* object)

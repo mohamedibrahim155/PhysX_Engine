@@ -21,6 +21,8 @@ void SphereCollider::ConstructCollider()
 	sphereShape = physics->createShape(
 		CreateSphereGeomentryFromAABB(modelAABB),
 		*physicsMaterial);
+
+	sphereShape->setLocalPose(GetLocalShapeTransfom());
 }
 
 void SphereCollider::Render()
@@ -75,11 +77,11 @@ void SphereCollider::SetRadius(float radius)
 {
 	this->radius = radius;
 
-	PxSphereGeometry sphere(radius);
+	;
 
 	if (sphereShape)
 	{
-		sphereShape->setGeometry(sphere);
+		((PxSphereGeometry*)sphereShape)->radius = radius;
 	}
 }
 

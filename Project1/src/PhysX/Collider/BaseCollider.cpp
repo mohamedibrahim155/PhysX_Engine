@@ -1,6 +1,7 @@
 #include "BaseCollider.h"
 #include "BoxCollider.h"
 #include "SphereCollider.h"
+#include "CapsuleCollider.h"
 #include "../PhysXObject.h"
 #include "../PhysXUtils.h"
 
@@ -8,24 +9,24 @@ void BaseCollider::InitializeCollider(PhysXObject* object)
 {
 	physicsObject = object;
 
-	physXTransform = &object->transform;
+	modelTransform = &object->transform;
 
 	modelAABB = CalculatePxModelAABB();
 
-	modelAABB.minimum.x *= physXTransform->scale.x;
-	modelAABB.minimum.y *= physXTransform->scale.y;
-	modelAABB.minimum.z *= physXTransform->scale.z;
+	modelAABB.minimum.x *= modelTransform->scale.x;
+	modelAABB.minimum.y *= modelTransform->scale.y;
+	modelAABB.minimum.z *= modelTransform->scale.z;
 
-	modelAABB.maximum.x *= physXTransform->scale.x;
-	modelAABB.maximum.y *= physXTransform->scale.y;
-	modelAABB.maximum.z *= physXTransform->scale.z;
+	modelAABB.maximum.x *= modelTransform->scale.x;
+	modelAABB.maximum.y *= modelTransform->scale.y;
+	modelAABB.maximum.z *= modelTransform->scale.z;
 
 	
 }
 
 glm::vec3 BaseCollider::GetPosition()
 {
-	return physXTransform->position + offsetPosition;
+	return modelTransform->position + offsetPosition;
 }
 
 glm::vec3 BaseCollider::GetOffsetPosition()
@@ -35,7 +36,12 @@ glm::vec3 BaseCollider::GetOffsetPosition()
 
 glm::quat BaseCollider::GetRotation()
 {
-	return physXTransform->quaternionRotation;
+	return modelTransform->quaternionRotation;
+}
+
+PxTransform BaseCollider::GetLocalShapeTransfom()
+{
+	return PxTransform(GLMToPxVec3(localShapePosition),PxQuat(0,0,0,1));
 }
 
 void BaseCollider::SetCentreOffset(const glm::vec3& offsetValue)
@@ -51,6 +57,11 @@ BoxCollider* BaseCollider::AsBoxCollider()
 SphereCollider* BaseCollider::AsSphereCollider()
 {
 	return (SphereCollider*)this;
+}
+
+CapsuleCollider* BaseCollider::AsCapsuleCollider()
+{
+	return (CapsuleCollider*)this;
 }
 
 PxBounds3 BaseCollider::CalculatePxModelAABB()

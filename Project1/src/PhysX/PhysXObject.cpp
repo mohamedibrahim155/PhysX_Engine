@@ -35,6 +35,10 @@ void PhysXObject::Initialize(RigidBody::RigidBodyType bodyType, BaseCollider::Co
 	case BaseCollider::ColliderShape::SPHERE:
 		collider = new SphereCollider();
 		break;
+
+	case BaseCollider::ColliderShape::CAPSULE:
+		collider = new CapsuleCollider();
+		break;
 	}
 
 	collider->InitializeCollider(this);
@@ -47,6 +51,8 @@ void PhysXObject::Initialize(RigidBody::RigidBodyType bodyType, BaseCollider::Co
 void PhysXObject::DrawProperties()
 {
 	Model::DrawProperties();
+
+
 }
 
 void PhysXObject::SceneDraw()

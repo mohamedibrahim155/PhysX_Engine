@@ -7,6 +7,7 @@ using namespace physx;
 class PhysXObject;
 class BoxCollider;
 class SphereCollider;
+class CapsuleCollider;
 class Transform;
 class BaseCollider
 {
@@ -14,7 +15,8 @@ public:
 	enum class ColliderShape
 	{
 		BOX = 0,
-		SPHERE = 1
+		SPHERE = 1,
+		CAPSULE = 2
 	};
 
 	virtual void ConstructCollider() = 0;
@@ -27,20 +29,22 @@ public:
 	virtual glm::vec3 GetPosition();
 	virtual glm::vec3 GetOffsetPosition();
 	virtual glm::quat GetRotation();
+	virtual PxTransform GetLocalShapeTransfom();
 
 	ColliderShape shapeType;
 
 
 	BoxCollider* AsBoxCollider();
 	SphereCollider* AsSphereCollider();
+	CapsuleCollider* AsCapsuleCollider();
 	PxShape* shape = nullptr;
 	PhysXObject* physicsObject;
-	Transform* physXTransform;
+	Transform* modelTransform;
 
 	PxBounds3 modelAABB;
 
 	glm::vec3 offsetPosition =  glm::vec3(0);
-
+	glm::vec3 localShapePosition = glm::vec3(0);
 private:
 
 	PxBounds3 CalculatePxModelAABB();

@@ -228,10 +228,10 @@ void ApplicationRenderer::Start()
      physixObject->Initialize(RigidBody::RigidBodyType::KINEMATIC, BaseCollider::ColliderShape::BOX);
      physixObject->collider->SetCentreOffset(glm::vec3(0, 1, 0));
      physixObject->rigidBody->SetGravity(false);
-     //PhysicsMaterial material;
-     //material.dynamicFriction = 2;
-     //material.bounciness = 1;
-     //physixObject->collider->SetPhysicsMaterial(material);
+    /* PhysicsMaterial material;
+     material.dynamicFriction = 2;
+     material.bounciness = 1;
+     physixObject->collider->SetPhysicsMaterial(material);*/
 
      //physixObject->collider->AsBoxCollider()->SetSize(glm::vec3(1, 2, 1));
 
@@ -246,11 +246,11 @@ void ApplicationRenderer::Start()
      PhysXObject* physixObject3 = new PhysXObject();
      physixObject3->LoadModel("Models/DefaultSphere/DefaultSphere.fbx");
      physixObject3->transform.SetPosition(glm::vec3(0, 10, 1));
-    // physixObject3->transform.SetRotation(glm::vec3(0, 0, 0));
+     physixObject3->transform.SetRotation(glm::vec3(0, 0, 0));
     // physixObject->transform.SetScale(glm::vec3(0.5f, 0.25f, 0.25f));
      GraphicsRender::GetInstance().AddModelAndShader(physixObject3, defaultShader);
-     physixObject3->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::SPHERE);
-     physixObject3->collider->AsSphereCollider()->SetRadius(1);
+     physixObject3->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::CAPSULE);
+     //physixObject3->collider->AsSphereCollider()->SetRadius(1);
 
 
 }

@@ -171,22 +171,53 @@ void PhysXEngine::UpdatePhysicsRenders()
 
 			actor->getShapes(shapes, nbShapes);
 
+			glm::vec3 position =glm::vec3(0);
+			glm::vec3 rotation = glm::vec3(0);
+
 			for (PxU32 j = 0; j < nbShapes; j++)
 			{
-				const PxTransform shapePose = PxShapeExt::getGlobalPose(*shapes[j], *actor);
+				
+				const PxTransform shapePose = actor->getGlobalPose();
+				//const PxMat44 shapePose(actor->getGlobalPose());
+				//const PxGeometry& geom = shapes[j]->getGeometry();
 
 				const PxVec3 translation = shapePose.p;
+
+				//PxMat33 rotationMatrix;
+				/*PxMat33 rotationMatrix;
+				rotationMatrix[0][0] = shapePose[0][0];
+				rotationMatrix[0][1] = shapePose[0][1];
+				rotationMatrix[0][2] = shapePose[0][2];
+
+				rotationMatrix[1][0] = shapePose[1][0];
+				rotationMatrix[1][1] = shapePose[1][1];
+				rotationMatrix[1][2] = shapePose[1][2];
+
+				rotationMatrix[2][0] = shapePose[2][0];
+				rotationMatrix[2][1] = shapePose[2][1];
+				rotationMatrix[2][2] = shapePose[2][2];*/
+
 				const PxQuat pxRotation = shapePose.q;
 
-				glm::vec3 position = PxVec3ToGLM(translation);
-				glm::quat rotation = PxQuatToGLM(pxRotation);
 
+				//PxQuat pxRotation(rotationMatrix);
 
-				physObject->transform.SetPosition(position - physObject->collider->GetOffsetPosition());
-				physObject->transform.SetQuatRotation(rotation);
+				position += PxVec3ToGLM(translation);
+				rotation += glm::degrees(glm::eulerAngles(PxQuatToGLM(pxRotation)));
 
 			}
 
+			position /= nbShapes;
+			rotation /= nbShapes;
+
+
+			physObject->transform.SetPosition(position - physObject->collider->GetOffsetPosition());
+			physObject->transform.SetRotation(rotation);
+
+			PxVec3 colliderPos = GLMToPxVec3(physObject->collider->GetPosition());
+			PxQuat colliderRot = GLMToPxQuat(physObject->collider->GetRotation());
+
+			physObject->rigidActor->setGlobalPose(PxTransform(colliderPos, colliderRot));
 		}
 
 		
