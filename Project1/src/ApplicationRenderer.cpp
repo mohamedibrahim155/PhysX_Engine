@@ -228,6 +228,7 @@ void ApplicationRenderer::Start()
      physixObject->Initialize(RigidBody::RigidBodyType::KINEMATIC, BaseCollider::ColliderShape::BOX);
      physixObject->collider->SetCentreOffset(glm::vec3(0, 1, 0));
      physixObject->rigidBody->SetGravity(false);
+     //physixObject->rigidBody->SetKinematic(true);
     /* PhysicsMaterial material;
      material.dynamicFriction = 2;
      material.bounciness = 1;

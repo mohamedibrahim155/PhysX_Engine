@@ -72,9 +72,9 @@ void RigidBody::UpdateGravity(bool gravity)
 {
 	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
 	{
-		dynamicActor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, !gravity);
+		dynamicActor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, !(gravity));
 
-		if (!gravity)
+		if (useGravity)
 		{
 			dynamicActor->wakeUp();
 		}
@@ -112,7 +112,6 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 	{
 	case RigidBody::RigidBodyType::DYNAMIC:
 		rigidActor = physics->createRigidDynamic(transform);
-		UpdateGravity(useGravity);
 		break;
 	case RigidBody::RigidBodyType::STATIC:
 
@@ -120,8 +119,7 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 		break;
 	case RigidBody::RigidBodyType::KINEMATIC:
 		rigidActor = physics->createRigidDynamic(transform);
-		UpdateGravity(useGravity);
-	    UpdateKinematic(isKinematic);
+		
 	}
 
 	if (rigidActor)
@@ -136,6 +134,16 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 
 		PhysXEngine::GetInstance().GetPhysicsScene()->addActor(*rigidActor);
 
+		switch (rigidBodyType)
+		{
+		case RigidBody::RigidBodyType::DYNAMIC:
+			UpdateGravity(useGravity);
+			break;
+		case RigidBody::RigidBodyType::KINEMATIC:
+			UpdateGravity(useGravity);
+			UpdateKinematic(isKinematic);
+			break;
+		}
 	}
 	
 
