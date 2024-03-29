@@ -246,6 +246,9 @@
     <ClCompile Include="src\PhysX\Collider\CapsuleCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MeshCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -498,6 +501,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\PhysX\Collider\CapsuleCollider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

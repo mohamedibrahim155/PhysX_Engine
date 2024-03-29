@@ -35,9 +35,10 @@ void CapsuleCollider::Render()
     boxAABB.maximum += GLMToPxVec3(GetPosition());
 
   
-
-    glm::vec3 upSphere = (modelTransform->position + offsetPosition +localShapePosition) + modelTransform->GetUp() * halfHeight;
-    glm::vec3 downSphere = (modelTransform->position + offsetPosition + localShapePosition) - modelTransform->GetUp() * halfHeight;
+    glm::vec3 getDirection = GetModelDirection();
+   
+    glm::vec3 upSphere = (modelTransform->position + offsetPosition +localShapePosition) + getDirection * halfHeight;
+    glm::vec3 downSphere = (modelTransform->position + offsetPosition + localShapePosition) - getDirection * halfHeight;
 
     //Sphere 1
     GraphicsRender::GetInstance().DrawSphere(
@@ -89,6 +90,12 @@ void CapsuleCollider::SetHalfLength(float halfLength)
     SetCapsuleShape(radius, halfHeight);
 }
 
+void CapsuleCollider::SetAxis(const Direction& direction)
+{
+    this->direction = direction;
+    capsuleShape->setLocalPose(GetLocalShapeTransfom());
+}
+
 
 
 PxShape* CapsuleCollider::GetShape()
@@ -98,7 +105,21 @@ PxShape* CapsuleCollider::GetShape()
 
 PxTransform CapsuleCollider::GetLocalShapeTransfom()
 {
-    return PxTransform(GLMToPxVec3(localShapePosition), PxQuat(PxHalfPi, PxVec3(0.0f, 0.0f, 1.0f)));
+    switch (direction)
+    {
+    case Direction::X_axis:
+        return PxTransform(GLMToPxVec3(localShapePosition), PxQuat(PxHalfPi, PxVec3(1.0f, 0.0f, 0.0f)));
+
+        break;
+    case Direction::Y_axis:
+        return PxTransform(GLMToPxVec3(localShapePosition), PxQuat(PxHalfPi, PxVec3(0.0f, 0.0f, 1.0f)));
+        break;
+    case Direction::Z_axis:
+        return PxTransform(GLMToPxVec3(localShapePosition), PxQuat(PxHalfPi, PxVec3(0.0f, 1.0f, 0.0f)));
+        break;
+    default:
+        break;
+    }
 }
 
 PxCapsuleGeometry CapsuleCollider::createCapsuleGeomentryFromAABB(const PxBounds3& aabb)
@@ -130,4 +151,22 @@ void CapsuleCollider::SetCapsuleShape(float radius, float halfHeight)
         capsule.halfHeight = halfHeight;
         capsuleShape->setGeometry(capsule);
     }
+}
+
+glm::vec3 CapsuleCollider::GetModelDirection()
+{
+    switch (direction)
+    {
+    case Direction::X_axis:
+        return modelTransform->GetRight();
+
+        break;
+    case Direction::Y_axis:
+        return modelTransform->GetUp();
+        break;
+    case Direction::Z_axis:
+        return modelTransform->GetForward();
+        break;
+    }
+    return glm::vec3(0);
 }
