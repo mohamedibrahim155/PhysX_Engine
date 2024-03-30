@@ -5,6 +5,16 @@
 #include "CollisionInfo.h"
 using namespace physx;
 
+struct Contraints
+{
+	Contraints() = default;
+	Contraints(bool x, bool y, bool z) : x(x), y(y), z(z) {};
+
+	bool x = false;
+	bool y = false;
+	bool z = false;
+};
+
 class PhysXObject : public Model
 {
 public:
@@ -34,6 +44,10 @@ public:
 	PxRigidActor* rigidActor = nullptr;
 	BaseCollider* collider;
 	RigidBody* rigidBody;
+
+	Contraints freezePosition;
+	Contraints freezeRotation;
+
 private:
 
 
