@@ -255,6 +255,14 @@ void ApplicationRenderer::Start()
      physixObject3->collider->AsCapsuleCollider()->SetHalfLength(5);*/
 
 
+     PhysXObject* terrainPhyx = new PhysXObject();
+     terrainPhyx->LoadModel("Models/Terrain/Terrain.ply");
+     terrainPhyx->transform.SetPosition(glm::vec3(0, -10, 0));
+     //physixObject2->transform.SetRotation(glm::vec3(0));
+     terrainPhyx->transform.SetScale(glm::vec3(0.5f));
+     GraphicsRender::GetInstance().AddModelAndShader(terrainPhyx, defaultShader);
+     terrainPhyx->Initialize(RigidBody::RigidBodyType::STATIC, BaseCollider::ColliderShape::MESH);
+
 }
 
 

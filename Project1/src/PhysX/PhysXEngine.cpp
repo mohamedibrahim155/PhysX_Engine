@@ -166,6 +166,11 @@ void PhysXEngine::UpdatePhysicsRenders()
 
 			PhysXObject* physObject = (PhysXObject*)actor->userData;
 
+			if (physObject->rigidBody->rigidBodyType == RigidBody::RigidBodyType::STATIC)
+			{
+				continue;
+			}
+
 			const PxU32 nbShapes = actor->getNbShapes();
 			PX_ASSERT(nbShapes <= MAX_NUM_ACTOR_SHAPES);
 
@@ -173,6 +178,8 @@ void PhysXEngine::UpdatePhysicsRenders()
 
 			glm::vec3 position =glm::vec3(0);
 			glm::vec3 rotation = glm::vec3(0);
+
+			
 
 			for (PxU32 j = 0; j < nbShapes; j++)
 			{

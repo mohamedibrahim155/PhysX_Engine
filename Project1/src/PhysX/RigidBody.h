@@ -5,6 +5,7 @@
 #include "Collider/BoxCollider.h"
 #include "Collider/SphereCollider.h"
 #include "Collider/CapsuleCollider.h"
+#include "Collider/MeshCollider.h"
 #include <PxPhysics.h>
 using namespace physx;
 

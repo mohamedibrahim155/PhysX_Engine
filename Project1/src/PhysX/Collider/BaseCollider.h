@@ -16,7 +16,8 @@ public:
 	{
 		BOX = 0,
 		SPHERE = 1,
-		CAPSULE = 2
+		CAPSULE = 2,
+		MESH =3
 	};
 
 	virtual void ConstructCollider() = 0;

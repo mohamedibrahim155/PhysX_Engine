@@ -39,6 +39,10 @@ void PhysXObject::Initialize(RigidBody::RigidBodyType bodyType, BaseCollider::Co
 	case BaseCollider::ColliderShape::CAPSULE:
 		collider = new CapsuleCollider();
 		break;
+
+	case BaseCollider::ColliderShape::MESH:
+		collider = new MeshCollider();
+		break;
 	}
 
 	collider->InitializeCollider(this);
