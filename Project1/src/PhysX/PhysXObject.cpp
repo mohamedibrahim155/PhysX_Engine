@@ -90,36 +90,32 @@ void PhysXObject::OnDestroy()
 
 void PhysXObject::OnTriggerEnter(PhysXObject* otherObject)
 {
-	std::cout << "On Trigger Enter with "  << otherObject->name << std::endl;
-
-	
+	//std::cout << "On Trigger Enter" << std::endl;
 }
 
 void PhysXObject::OnTriggerStay(PhysXObject* otherObject)
 {
-	std::cout << "On Trigger stay" << std::endl;
+	//std::cout << "On Trigger stay" << std::endl;
 }
 
 void PhysXObject::OnTriggerExit(PhysXObject* otherObject)
 {
-	std::cout << "On Trigger Exit" << std::endl;
-
+	//std::cout << "On Trigger Exit" << std::endl;
 }
 
 void PhysXObject::OnCollisionEnter(PhysXObject* otherObject)
 {
-	std::cout << "On Collision Enter" << std::endl;
+	//std::cout << "On Collision Enter" << std::endl;
 }
 
 void PhysXObject::OnCollisionStay(PhysXObject* otherObject)
 {
-	std::cout << "On Collision stay" << std::endl;
+	//std::cout << "On Collision stay" << std::endl;
 }
 
 void PhysXObject::OnCollisionExit(PhysXObject* otherObject)
 {
-	std::cout << "On Collision Exit" << std::endl;
-
+	//std::cout << "On Collision Exit" << std::endl;
 }
 
 
