@@ -5,7 +5,6 @@
 
 SphereCollider::SphereCollider()
 {
-	physics = PhysXEngine::GetInstance().GetPhysics();
 }
 
 void SphereCollider::ConstructCollider()
@@ -13,16 +12,11 @@ void SphereCollider::ConstructCollider()
 
 	shapeType = ColliderShape::SPHERE;
 
-	if (physicsMaterial == nullptr)
-	{
-		physicsMaterial = PhysXEngine::GetInstance().GetPxPhysicsMaterial();
-	}
-
-	sphereShape = physics->createShape(
+	shape = physics->createShape(
 		CreateSphereGeomentryFromAABB(modelAABB),
 		*physicsMaterial);
 
-	sphereShape->setLocalPose(GetLocalShapeTransfom());
+	shape->setLocalPose(GetLocalShapeTransfom());
 }
 
 void SphereCollider::Render()
@@ -60,35 +54,19 @@ void SphereCollider::InitializeCollider(PhysXObject* object)
 	this->ConstructCollider();
 }
 
-void SphereCollider::SetPhysicsMaterial(PhysicsMaterial& material)
-{
-	physicsMaterial = physics->createMaterial(material.staticFriction,
-		material.dynamicFriction, material.bounciness);
-
-	physicsMaterial->setFrictionCombineMode(PxCombineToLocal(material.frictionCombine));
-	physicsMaterial->setRestitutionCombineMode(PxCombineToLocal(material.bounceCombine));
-
-	PxMaterial* materials[] = { physicsMaterial };
-
-	sphereShape->setMaterials(materials, 1);
-}
-
 void SphereCollider::SetRadius(float radius)
 {
 	this->radius = radius;
 
 	PxSphereGeometry sphere(radius);
 
-	if (sphereShape)
+	if (shape)
 	{
-		sphereShape->setGeometry(sphere);
+		shape->setGeometry(sphere);
 	}
 }
 
-PxShape* SphereCollider::GetShape()
-{
-	return sphereShape;
-}
+
 
 PxSphereGeometry SphereCollider::CreateSphereGeomentryFromAABB(const PxBounds3& aabb)
 {

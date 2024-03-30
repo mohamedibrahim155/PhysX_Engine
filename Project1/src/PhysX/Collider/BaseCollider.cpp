@@ -4,6 +4,13 @@
 #include "CapsuleCollider.h"
 #include "../PhysXObject.h"
 #include "../PhysXUtils.h"
+#include "../PhysXEngine.h"
+
+BaseCollider::BaseCollider()
+{
+	physics = PhysXEngine::GetInstance().GetPhysics();
+	physicsMaterial = PhysXEngine::GetInstance().GetPxPhysicsMaterial();
+}
 
 void BaseCollider::InitializeCollider(PhysXObject* object)
 {
@@ -22,6 +29,24 @@ void BaseCollider::InitializeCollider(PhysXObject* object)
 	modelAABB.maximum.z *= modelTransform->scale.z;
 
 	
+}
+
+void BaseCollider::SetPhysicsMaterial(PhysicsMaterial& material)
+{
+	physicsMaterial = physics->createMaterial(material.staticFriction,
+		material.dynamicFriction, material.bounciness);
+
+	physicsMaterial->setFrictionCombineMode(PxCombineToLocal(material.frictionCombine));
+	physicsMaterial->setRestitutionCombineMode(PxCombineToLocal(material.bounceCombine));
+
+	PxMaterial* materials[] = { physicsMaterial };
+
+	shape->setMaterials(materials, 1);
+}
+
+PxShape* BaseCollider::GetShape()
+{
+	return shape;
 }
 
 glm::vec3 BaseCollider::GetPosition()

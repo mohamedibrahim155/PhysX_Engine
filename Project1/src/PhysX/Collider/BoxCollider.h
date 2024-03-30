@@ -20,20 +20,11 @@ public :
     void ConstructCollider() override;
     void InitializeCollider(PhysXObject* object) override;
 	void Render() override;
-	void SetPhysicsMaterial(PhysicsMaterial& material) override;
-	PxShape* GetShape() override;
-
 	void SetSize(glm::vec3 size);
+
+
 private:
 
-
-	PxMaterial* physicsMaterial = nullptr;
-	PxPhysics* physics = nullptr;
-	PxShape* boxshape = nullptr;
-
 	PxBoxGeometry CreateBoxGeometryFromAABB(const PxBounds3& aabb);
-
-	
-
 };
 

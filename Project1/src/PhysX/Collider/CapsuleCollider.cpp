@@ -5,24 +5,14 @@
 
 CapsuleCollider::CapsuleCollider()
 {
-    physics = PhysXEngine::GetInstance().GetPhysics();
-
 }
 
 void CapsuleCollider::ConstructCollider()
 {
     shapeType = ColliderShape::CAPSULE;
-
-    if (physicsMaterial == nullptr)
-    {
-        physicsMaterial = PhysXEngine::GetInstance().GetPxPhysicsMaterial();
-    }
-
-    capsuleShape = physics->createShape(
-        createCapsuleGeomentryFromAABB(modelAABB),
-        *physicsMaterial);
-
-    capsuleShape->setLocalPose(this->GetLocalShapeTransfom());
+    shape = physics->createShape(
+        createCapsuleGeomentryFromAABB(modelAABB), *physicsMaterial);
+    shape->setLocalPose(this->GetLocalShapeTransfom());
 }
 
 void CapsuleCollider::Render()
@@ -63,18 +53,6 @@ void CapsuleCollider::InitializeCollider(PhysXObject* object)
     ConstructCollider();
 }
 
-void CapsuleCollider::SetPhysicsMaterial(PhysicsMaterial& material)
-{
-    physicsMaterial = physics->createMaterial(material.staticFriction,
-        material.dynamicFriction, material.bounciness);
-
-    physicsMaterial->setFrictionCombineMode(PxCombineToLocal(material.frictionCombine));
-    physicsMaterial->setRestitutionCombineMode(PxCombineToLocal(material.bounceCombine));
-
-    PxMaterial* materials[] = { physicsMaterial };
-
-    capsuleShape->setMaterials(materials, 1);
-}
 
 void CapsuleCollider::SetRadius(float radius)
 {
@@ -93,15 +71,9 @@ void CapsuleCollider::SetHalfLength(float halfLength)
 void CapsuleCollider::SetAxis(const Direction& direction)
 {
     this->direction = direction;
-    capsuleShape->setLocalPose(GetLocalShapeTransfom());
+    shape->setLocalPose(GetLocalShapeTransfom());
 }
 
-
-
-PxShape* CapsuleCollider::GetShape()
-{
-    return capsuleShape;
-}
 
 PxTransform CapsuleCollider::GetLocalShapeTransfom()
 {
@@ -145,11 +117,11 @@ PxCapsuleGeometry CapsuleCollider::createCapsuleGeomentryFromAABB(const PxBounds
 
 void CapsuleCollider::SetCapsuleShape(float radius, float halfHeight)
 {
-    if (capsuleShape)
+    if (shape)
     {
         capsule.radius = radius;
         capsule.halfHeight = halfHeight;
-        capsuleShape->setGeometry(capsule);
+        shape->setGeometry(capsule);
     }
 }
 

@@ -7,20 +7,11 @@ public:
 	~MeshCollider();
 	// Inherited via BaseCollider
 	void ConstructCollider() override;
-   void InitializeCollider(PhysXObject* object) override;
-
-
+    void InitializeCollider(PhysXObject* object) override;
 	void Render() override;
 
-	void SetPhysicsMaterial(PhysicsMaterial& material) override;
-
-	PxShape* GetShape() override;
 
 private:
-
-	PxMaterial* physicsMaterial = nullptr;
-	PxPhysics* physics = nullptr;
-	PxShape* meshShape = nullptr;
 
 	PxTriangleMeshGeometry triangleMeshGeomentry;
 	PxTriangleMesh* pxTriangleMesh = nullptr;

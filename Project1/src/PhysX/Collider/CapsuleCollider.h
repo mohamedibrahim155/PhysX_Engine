@@ -18,11 +18,10 @@ public:
 
 	void Render() override;
     void InitializeCollider(PhysXObject* object) override;
-	void SetPhysicsMaterial(PhysicsMaterial& material) override;
 	void SetRadius(float radius);
 	void SetHalfLength(float halfLength);
 	void SetAxis(const Direction& direction);
-	PxShape* GetShape() override;
+
     PxTransform GetLocalShapeTransfom() override;
 
 	Direction direction = Direction::Y_axis;
@@ -30,16 +29,15 @@ public:
 	float halfHeight = 1;
 private:
 
-	PxMaterial* physicsMaterial = nullptr;
-	PxPhysics* physics = nullptr;
-	PxShape* capsuleShape = nullptr;
-
-	PxCapsuleGeometry createCapsuleGeomentryFromAABB(const PxBounds3& aabb);
-	void SetCapsuleShape(float radius, float halfHeight);
-
 	PxCapsuleGeometry capsule;
 
+	void SetCapsuleShape(float radius, float halfHeight);
+
+	PxCapsuleGeometry createCapsuleGeomentryFromAABB(const PxBounds3& aabb);
+
 	glm::vec3 GetModelDirection();
+
+
 
 };
 

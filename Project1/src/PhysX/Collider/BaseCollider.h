@@ -20,13 +20,14 @@ public:
 		MESH =3
 	};
 
+	BaseCollider();
 	virtual void ConstructCollider() = 0;
 	virtual void Render() = 0;
 	virtual void InitializeCollider(PhysXObject* object);
-	virtual void SetPhysicsMaterial(PhysicsMaterial& material) = 0;
+	virtual void SetPhysicsMaterial(PhysicsMaterial& material);
 	virtual void SetCentreOffset(const glm::vec3& offsetValue);
 
-	virtual PxShape* GetShape() = 0;
+	virtual PxShape* GetShape();
 	virtual glm::vec3 GetPosition();
 	virtual glm::vec3 GetOffsetPosition();
 	virtual glm::quat GetRotation();
@@ -38,9 +39,12 @@ public:
 	BoxCollider* AsBoxCollider();
 	SphereCollider* AsSphereCollider();
 	CapsuleCollider* AsCapsuleCollider();
-	PxShape* shape = nullptr;
-	PhysXObject* physicsObject;
-	Transform* modelTransform;
+
+	PxShape*    shape = nullptr;
+	PxMaterial* physicsMaterial = nullptr;
+	PxPhysics* physics = nullptr;
+	PhysXObject* physicsObject = nullptr;
+	Transform* modelTransform = nullptr;
 
 	PxBounds3 modelAABB;
 

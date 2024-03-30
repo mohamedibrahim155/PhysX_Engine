@@ -4,14 +4,13 @@
 #include "../../GraphicsRender.h"
 BoxCollider::BoxCollider()
 {
-	physics = PhysXEngine::GetInstance().GetPhysics();
 }
 
 BoxCollider::~BoxCollider()
 {
-	if (boxshape)
+	if (shape)
 	{
-		boxshape->release();
+		shape->release();
 	}
 }
 
@@ -19,16 +18,11 @@ void BoxCollider::ConstructCollider()
 {
 	shapeType = ColliderShape::BOX;
 
-	if (physicsMaterial == nullptr)
-	{
-		physicsMaterial = PhysXEngine::GetInstance().GetPxPhysicsMaterial();
-	}
-
-	boxshape = physics->createShape(
+	shape = physics->createShape(
 		CreateBoxGeometryFromAABB(modelAABB), 
 		*physicsMaterial);
 
-	boxshape->setLocalPose(GetLocalShapeTransfom());
+	shape->setLocalPose(GetLocalShapeTransfom());
 
 }
 
@@ -40,10 +34,6 @@ void BoxCollider::InitializeCollider(PhysXObject* object)
 
 }
 
-PxShape* BoxCollider::GetShape()
-{
-	return boxshape;
-}
 
 void BoxCollider::SetSize(glm::vec3 size)
 {
@@ -51,9 +41,9 @@ void BoxCollider::SetSize(glm::vec3 size)
 
 	 PxBoxGeometry shapeGeomentry = CreateBoxGeometryFromAABB(modelAABB);
 
-	if (boxshape)
+	if (shape)
 	{
-		boxshape->setGeometry(shapeGeomentry);
+		shape->setGeometry(shapeGeomentry);
 	}
 }
 
@@ -101,17 +91,5 @@ void BoxCollider::Render()
 	}
 }
 
-void BoxCollider::SetPhysicsMaterial(PhysicsMaterial& material)
-{
-	physicsMaterial = physics->createMaterial(material.staticFriction,
-		material.dynamicFriction, material.bounciness);
-
-	physicsMaterial->setFrictionCombineMode(PxCombineToLocal(material.frictionCombine));
-	physicsMaterial->setRestitutionCombineMode(PxCombineToLocal(material.bounceCombine));
-
-	PxMaterial* materials[] = { physicsMaterial };
-
-	boxshape->setMaterials(materials, 1);
-}
 
 

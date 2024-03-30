@@ -7,14 +7,13 @@
 using namespace physx;
 MeshCollider::MeshCollider()
 {
-	physics = PhysXEngine::GetInstance().GetPhysics();
 }
 
 MeshCollider::~MeshCollider()
 {
 	if (pxTriangleMesh)
 	{
-		meshShape->release();
+		shape->release();
 		pxTriangleMesh->release();
 
 	}
@@ -23,19 +22,9 @@ MeshCollider::~MeshCollider()
 void MeshCollider::ConstructCollider()
 {
 	shapeType = ColliderShape::MESH;
-
-
 	IntializeMeshCollider();
-
-	if (physicsMaterial == nullptr)
-	{
-		physicsMaterial = PhysXEngine::GetInstance().GetPxPhysicsMaterial();
-	}
-
-	meshShape = physics->createShape(triangleMeshGeomentry,*physicsMaterial);
-
-	meshShape->setLocalPose(GetLocalShapeTransfom());
-
+	shape = physics->createShape(triangleMeshGeomentry,*physicsMaterial);
+	shape->setLocalPose(GetLocalShapeTransfom());
 }
 
 void MeshCollider::InitializeCollider(PhysXObject* object)
@@ -47,24 +36,6 @@ void MeshCollider::InitializeCollider(PhysXObject* object)
 
 void MeshCollider::Render()
 {
-}
-
-void MeshCollider::SetPhysicsMaterial(PhysicsMaterial& material)
-{
-	physicsMaterial = physics->createMaterial(material.staticFriction,
-		material.dynamicFriction, material.bounciness);
-
-	physicsMaterial->setFrictionCombineMode(PxCombineToLocal(material.frictionCombine));
-	physicsMaterial->setRestitutionCombineMode(PxCombineToLocal(material.bounceCombine));
-
-	PxMaterial* materials[] = { physicsMaterial };
-
-	meshShape->setMaterials(materials, 1);
-}
-
-PxShape* MeshCollider::GetShape()
-{
-	return meshShape;
 }
 
 void MeshCollider::IntializeMeshCollider()
@@ -119,7 +90,7 @@ void MeshCollider::IntializeMeshCollider()
 	if (!PxCookTriangleMesh(params, triangleMeshDesc, writeBuffer))
 	{
 		// Handle cooking failure
-
+		std::cout << "Failed to Create PxTrianglarMesh : " << __FILE__ << ":" << __LINE__ << std::endl;
 		return;
 	}
 	PxDefaultMemoryInputData readBuffer(writeBuffer.getData(), writeBuffer.getSize());

@@ -254,6 +254,10 @@ void ApplicationRenderer::Start()
   /*   physixObject3->collider->AsCapsuleCollider()->SetRadius(0.5f);
      physixObject3->collider->AsCapsuleCollider()->SetHalfLength(5);*/
 
+      PhysicsMaterial material;
+     material.dynamicFriction = 2;
+     material.bounciness = 5;
+     physixObject3->collider->SetPhysicsMaterial(material);
 
      PhysXObject* terrainPhyx = new PhysXObject();
      terrainPhyx->LoadModel("Models/Terrain/Terrain.ply");
