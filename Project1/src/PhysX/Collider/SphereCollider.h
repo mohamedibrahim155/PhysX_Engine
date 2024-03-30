@@ -19,11 +19,12 @@ public:
 	void InitializeCollider(PhysXObject* object) override;
 	void SetRadius(float radius);
 
-	glm::vec3 Centre;
 	float radius = 1;
 
 private:
 
 	PxSphereGeometry CreateSphereGeomentryFromAABB(const PxBounds3& aabb);
+
+	float columnWidth = 150.0f;
 };
 

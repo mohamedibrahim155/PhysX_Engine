@@ -143,6 +143,25 @@ glm::vec3 CapsuleCollider::GetModelDirection()
     return glm::vec3(0);
 }
 
+const char* CapsuleCollider::directionOptions[] = { "X Axis", "Y Axis", "Z Axis" };
+
 void CapsuleCollider::DrawColliderProperties()
 {
+    if (!ImGui::TreeNodeEx("Capsule Collider", ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        return;
+    }
+
+    DrawTransformVector3ImGui("Offset Position", offsetPosition, 0, columnWidth);
+
+    DrawDragFloatImGui("Radius", radius, 0.1f, 0, 0);
+    DrawDragFloatImGui("halfLength", halfHeight, 0.1f, 0, 0);
+
+    int directionIndex = static_cast<int>(direction);
+    if (ImGui::Combo("Direction", &directionIndex, directionOptions, IM_ARRAYSIZE(directionOptions)))
+    {
+        direction = static_cast<Direction>(directionIndex);
+    }
+
+    ImGui::TreePop();
 }

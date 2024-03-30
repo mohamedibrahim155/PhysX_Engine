@@ -39,7 +39,7 @@ void BoxCollider::SetSize(glm::vec3 size)
 {
 	sizeExtents = size;
 
-	 PxBoxGeometry shapeGeomentry = CreateBoxGeometryFromAABB(modelAABB);
+	 shapeGeomentry = CreateBoxGeometryFromAABB(modelAABB);
 
 	if (shape)
 	{
@@ -59,13 +59,23 @@ PxBoxGeometry BoxCollider::CreateBoxGeometryFromAABB(const PxBounds3& aabb)
 	tempExtends.y = aabb.getExtents(1) * extends.y;
 	tempExtends.z = aabb.getExtents(2) * extends.z;
 
-	PxBoxGeometry boxGeometry(tempExtends);
+	shapeGeomentry.halfExtents = tempExtends;
 
-	return boxGeometry;
+	return shapeGeomentry;
 }
 
 void BoxCollider::DrawColliderProperties()
 {
+	if (!ImGui::TreeNodeEx("Box Collider", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		return;
+	}
+
+	DrawTransformVector3ImGui("Offset Position", offsetPosition, 0, columnWidth);
+
+	DrawTransformVector3ImGui("Size", sizeExtents, 1, columnWidth);
+
+	ImGui::TreePop();
 }
 
 void BoxCollider::DrawShape()

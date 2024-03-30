@@ -56,7 +56,9 @@ void PhysXObject::DrawProperties()
 {
 	Model::DrawProperties();
 
+	if (collider == nullptr)  return;
 
+	collider->DrawColliderProperties();
 }
 
 void PhysXObject::SceneDraw()

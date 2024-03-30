@@ -3,9 +3,9 @@
 
 enum class Direction
 {
-	X_axis,
-	Y_axis,
-	Z_axis
+	X_axis =0,
+	Y_axis=1,
+	Z_axis=2
 };
 class CapsuleCollider : public BaseCollider
 {
@@ -30,12 +30,13 @@ public:
 	float halfHeight = 1;
 private:
 
-	PxCapsuleGeometry capsule;
-
 	void SetCapsuleShape(float radius, float halfHeight);
-
 	PxCapsuleGeometry createCapsuleGeomentryFromAABB(const PxBounds3& aabb);
-
 	glm::vec3 GetModelDirection();
+
+	PxCapsuleGeometry capsule;
+	float columnWidth = 150.0f;
+	static const char* directionOptions[];
+
 };
 

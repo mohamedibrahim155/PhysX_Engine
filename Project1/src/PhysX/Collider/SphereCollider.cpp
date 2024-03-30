@@ -73,4 +73,13 @@ PxSphereGeometry SphereCollider::CreateSphereGeomentryFromAABB(const PxBounds3& 
 
 void SphereCollider::DrawColliderProperties()
 {
+	if (!ImGui::TreeNodeEx("Sphere Collider", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		return;
+	}
+	DrawTransformVector3ImGui("Offset Position", offsetPosition, 0, columnWidth);
+
+	DrawDragFloatImGui("Radius", radius, 0.1f, 0.0f, 0);
+
+	ImGui::TreePop();
 }

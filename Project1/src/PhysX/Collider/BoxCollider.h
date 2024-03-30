@@ -26,5 +26,8 @@ public :
 private:
 
 	PxBoxGeometry CreateBoxGeometryFromAABB(const PxBounds3& aabb);
+
+	PxBoxGeometry shapeGeomentry;
+	float columnWidth = 150.0f;
 };
 

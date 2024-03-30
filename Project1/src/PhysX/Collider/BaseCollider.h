@@ -2,6 +2,7 @@
 #include <PxShape.h>
 #include "glm/glm.hpp"
 #include "../PhysicsMaterial/PhysicsMaterial.h"
+#include "../../ImGui/ImGuiUtils.h"
 using namespace physx;
 
 class PhysXObject;
