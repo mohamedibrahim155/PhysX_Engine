@@ -70,7 +70,7 @@ void PhysXObject::Render()
 {
 	if (collider)
 	{
-		collider->Render();
+		collider->DrawShape();
 	}
 }
 

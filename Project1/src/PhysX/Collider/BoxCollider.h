@@ -13,15 +13,15 @@ public :
 	BoxCollider();
 	~BoxCollider();
 
-	glm::vec3 boxCentre;
-	glm::vec3 sizeExtents = glm::vec3(1);
-
 	// Inherited via BaseCollider
     void ConstructCollider() override;
     void InitializeCollider(PhysXObject* object) override;
-	void Render() override;
+	void DrawShape() override;
+	void DrawColliderProperties() override;
 	void SetSize(glm::vec3 size);
 
+	glm::vec3 boxCentre;
+	glm::vec3 sizeExtents = glm::vec3(1);
 
 private:
 

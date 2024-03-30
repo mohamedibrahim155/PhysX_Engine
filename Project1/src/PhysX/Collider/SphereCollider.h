@@ -14,7 +14,8 @@ public:
 	// Inherited via BaseCollider
 	void ConstructCollider() override;
 
-	void Render() override;
+	void DrawShape() override;
+	void DrawColliderProperties() override;
 	void InitializeCollider(PhysXObject* object) override;
 	void SetRadius(float radius);
 
@@ -22,6 +23,7 @@ public:
 	float radius = 1;
 
 private:
+
 	PxSphereGeometry CreateSphereGeomentryFromAABB(const PxBounds3& aabb);
 };
 

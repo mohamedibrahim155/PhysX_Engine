@@ -59,12 +59,16 @@ PxBoxGeometry BoxCollider::CreateBoxGeometryFromAABB(const PxBounds3& aabb)
 	tempExtends.y = aabb.getExtents(1) * extends.y;
 	tempExtends.z = aabb.getExtents(2) * extends.z;
 
-	PxBoxGeometry boxGeometry(tempExtends); // Half extents are used for PxBoxGeometry
+	PxBoxGeometry boxGeometry(tempExtends);
 
 	return boxGeometry;
 }
 
-void BoxCollider::Render()
+void BoxCollider::DrawColliderProperties()
+{
+}
+
+void BoxCollider::DrawShape()
 {
 	if (physicsObject)
 	{

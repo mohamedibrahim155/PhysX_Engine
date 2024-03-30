@@ -34,7 +34,7 @@ void MeshCollider::InitializeCollider(PhysXObject* object)
 	ConstructCollider();
 }
 
-void MeshCollider::Render()
+void MeshCollider::DrawShape()
 {
 }
 
@@ -102,4 +102,8 @@ void MeshCollider::IntializeMeshCollider()
 
 	vertices.clear();
 	indices.clear();
+}
+
+void MeshCollider::DrawColliderProperties()
+{
 }

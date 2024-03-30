@@ -16,7 +16,8 @@ public:
 	// Inherited via BaseCollider
 	void ConstructCollider() override;
 
-	void Render() override;
+	void DrawShape() override;
+	void DrawColliderProperties() override;
     void InitializeCollider(PhysXObject* object) override;
 	void SetRadius(float radius);
 	void SetHalfLength(float halfLength);
@@ -36,8 +37,5 @@ private:
 	PxCapsuleGeometry createCapsuleGeomentryFromAABB(const PxBounds3& aabb);
 
 	glm::vec3 GetModelDirection();
-
-
-
 };
 

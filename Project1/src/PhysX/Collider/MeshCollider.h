@@ -8,7 +8,8 @@ public:
 	// Inherited via BaseCollider
 	void ConstructCollider() override;
     void InitializeCollider(PhysXObject* object) override;
-	void Render() override;
+	void DrawShape() override;
+	void DrawColliderProperties() override;
 
 
 private:
@@ -17,6 +18,5 @@ private:
 	PxTriangleMesh* pxTriangleMesh = nullptr;
 
 	void IntializeMeshCollider();
-
 };
 

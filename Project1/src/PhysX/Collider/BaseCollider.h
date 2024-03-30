@@ -22,7 +22,8 @@ public:
 
 	BaseCollider();
 	virtual void ConstructCollider() = 0;
-	virtual void Render() = 0;
+	virtual void DrawShape() = 0;
+	virtual void DrawColliderProperties() = 0;
 	virtual void InitializeCollider(PhysXObject* object);
 	virtual void SetPhysicsMaterial(PhysicsMaterial& material);
 	virtual void SetCentreOffset(const glm::vec3& offsetValue);
@@ -33,13 +34,11 @@ public:
 	virtual glm::quat GetRotation();
 	virtual PxTransform GetLocalShapeTransfom();
 
-	ColliderShape shapeType;
-
-
 	BoxCollider* AsBoxCollider();
 	SphereCollider* AsSphereCollider();
 	CapsuleCollider* AsCapsuleCollider();
 
+	ColliderShape shapeType;
 	PxShape*    shape = nullptr;
 	PxMaterial* physicsMaterial = nullptr;
 	PxPhysics* physics = nullptr;

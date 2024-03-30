@@ -15,7 +15,7 @@ void CapsuleCollider::ConstructCollider()
     shape->setLocalPose(this->GetLocalShapeTransfom());
 }
 
-void CapsuleCollider::Render()
+void CapsuleCollider::DrawShape()
 {
     if (physicsObject == nullptr)  return;
 
@@ -141,4 +141,8 @@ glm::vec3 CapsuleCollider::GetModelDirection()
         break;
     }
     return glm::vec3(0);
+}
+
+void CapsuleCollider::DrawColliderProperties()
+{
 }
