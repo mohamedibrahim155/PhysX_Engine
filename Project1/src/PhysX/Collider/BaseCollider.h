@@ -1,6 +1,7 @@
 #pragma once
 #include <PxShape.h>
 #include "glm/glm.hpp"
+#include <PxPhysicsAPI.h>
 #include "../PhysicsMaterial/PhysicsMaterial.h"
 #include "../../ImGui/ImGuiUtils.h"
 using namespace physx;
@@ -9,6 +10,7 @@ class PhysXObject;
 class BoxCollider;
 class SphereCollider;
 class CapsuleCollider;
+class MeshCollider;
 class Transform;
 class BaseCollider
 {
@@ -35,9 +37,14 @@ public:
 	virtual glm::quat GetRotation();
 	virtual PxTransform GetLocalShapeTransfom();
 
+	void SetTriggerState(bool state);
+	void TriggerState();
+
+
 	BoxCollider* AsBoxCollider();
 	SphereCollider* AsSphereCollider();
 	CapsuleCollider* AsCapsuleCollider();
+	MeshCollider* AsMeshCollider();
 
 	ColliderShape shapeType;
 	PxShape*    shape = nullptr;
@@ -50,6 +57,10 @@ public:
 
 	glm::vec3 offsetPosition =  glm::vec3(0);
 	glm::vec3 localShapePosition = glm::vec3(0);
+
+	bool isTrigger = false;
+
+
 private:
 
 	PxBounds3 CalculatePxModelAABB();

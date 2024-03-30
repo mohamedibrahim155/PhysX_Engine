@@ -4,6 +4,7 @@
 #include "PhysicsMaterial/PhysicsMaterial.h"
 #include <string>
 #include <vector>
+#include "TriggerEventCallback.h"
 
 using namespace physx;
 
@@ -51,11 +52,17 @@ private:
     PxDefaultCpuDispatcher* dispatcher = NULL;
 	PxPvd* physXDebuggerDisplay;
 
+	CollisionEventCallback collisionEventCallback;
 	PhysicsMaterial defaultPhysicsMaterial;
 	std::vector<PhysXObject*> physicsObjects;
 
 	const  static unsigned int MAXNUM_ACTOR_SHAPES = 128;
 	const std::string host = "127.0.0.1";
 	bool isApplicationPlay = false;
+
+	static PxFilterFlags ContactReportFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0,
+		PxFilterObjectAttributes attributes1, PxFilterData filterData1,
+		PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize);
+	
 };
 

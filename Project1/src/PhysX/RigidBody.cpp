@@ -128,11 +128,13 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 
 		rigidActor->attachShape(*collider->GetShape());
 
-		//rigidActor->setGlobalPose(transform);
+		rigidActor->setGlobalPose(transform);
 
 		object->rigidActor = rigidActor;
 
+
 		PhysXEngine::GetInstance().GetPhysicsScene()->addActor(*rigidActor);
+
 
 		switch (rigidBodyType)
 		{
@@ -144,6 +146,9 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 			UpdateKinematic(isKinematic);
 			break;
 		}
+		object->collider->TriggerState();
+
+
 	}
 	
 

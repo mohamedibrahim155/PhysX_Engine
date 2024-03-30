@@ -17,9 +17,21 @@ public:
 	void SceneDraw()override;
 	void Render()override;
 
+	virtual void Start() override;
+	virtual void Update(float deltaTime) override;
+	virtual void OnDestroy() override;
+
+	virtual void OnTriggerEnter(PhysXObject* otherObject);
+	virtual void OnTriggerStay(PhysXObject* otherObject);
+	virtual void OnTriggerExit(PhysXObject* otherObject);
+
+	virtual void OnCollisionEnter(PhysXObject* otherObject);
+	virtual void OnCollisionStay(PhysXObject* otherObject);
+	virtual void OnCollisionExit(PhysXObject* otherObject);
+
 	RigidBody* GetRigidBody();
 
-	PxRigidActor* rigidActor;
+	PxRigidActor* rigidActor = nullptr;
 	BaseCollider* collider;
 	RigidBody* rigidBody;
 private:

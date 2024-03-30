@@ -246,7 +246,13 @@
     <ClCompile Include="src\PhysX\Collider\CapsuleCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MeshCollider.cpp">
+    <ClCompile Include="src\PhysX\Collider\MeshCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysX\TriggerEventCallback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysX\CollisionInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -503,7 +509,13 @@
     <ClInclude Include="src\PhysX\Collider\CapsuleCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MeshCollider.h">
+    <ClInclude Include="src\PhysX\Collider\MeshCollider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysX\TriggerEventCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysX\CollisionInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

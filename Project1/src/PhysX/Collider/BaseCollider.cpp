@@ -2,6 +2,7 @@
 #include "BoxCollider.h"
 #include "SphereCollider.h"
 #include "CapsuleCollider.h"
+#include "MeshCollider.h"
 #include "../PhysXObject.h"
 #include "../PhysXUtils.h"
 #include "../PhysXEngine.h"
@@ -74,6 +75,42 @@ void BaseCollider::SetCentreOffset(const glm::vec3& offsetValue)
 	offsetPosition = offsetValue;
 }
 
+void BaseCollider::SetTriggerState(bool state)
+{
+	isTrigger = state;
+
+	if (physicsObject->rigidActor != nullptr)
+	{
+		physicsObject->rigidActor->detachShape(*shape);
+
+		if (isTrigger)
+		{
+			shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+			shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
+		}
+		else
+		{
+			shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, false);
+			shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, true);
+		}
+
+
+		physicsObject->rigidActor->attachShape(*shape);
+
+		if (physicsObject->rigidBody->rigidBodyType == RigidBody::RigidBodyType::DYNAMIC)
+		{
+			((PxRigidDynamic*)physicsObject->rigidActor)->wakeUp();
+		}
+	}
+
+	
+}
+
+void BaseCollider::TriggerState()
+{
+	SetTriggerState(isTrigger);
+}
+
 BoxCollider* BaseCollider::AsBoxCollider()
 {
 	return (BoxCollider*)this;
@@ -87,6 +124,11 @@ SphereCollider* BaseCollider::AsSphereCollider()
 CapsuleCollider* BaseCollider::AsCapsuleCollider()
 {
 	return (CapsuleCollider*)this;
+}
+
+MeshCollider* BaseCollider::AsMeshCollider()
+{
+	return (MeshCollider*)this;
 }
 
 PxBounds3 BaseCollider::CalculatePxModelAABB()

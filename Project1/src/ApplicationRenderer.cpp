@@ -258,14 +258,15 @@ void ApplicationRenderer::Start()
      material.dynamicFriction = 2;
      material.bounciness = 5;
      physixObject3->collider->SetPhysicsMaterial(material);
+     physixObject3->collider->SetTriggerState(true);
 
-     PhysXObject* terrainPhyx = new PhysXObject();
-     terrainPhyx->LoadModel("Models/Terrain/Terrain.ply");
-     terrainPhyx->transform.SetPosition(glm::vec3(0, -10, 0));
+    // PhysXObject* terrainPhyx = new PhysXObject();
+    // terrainPhyx->LoadModel("Models/Terrain/Terrain.ply");
+    // terrainPhyx->transform.SetPosition(glm::vec3(0, -10, 0));
      //physixObject2->transform.SetRotation(glm::vec3(0));
-     terrainPhyx->transform.SetScale(glm::vec3(0.5f));
-     GraphicsRender::GetInstance().AddModelAndShader(terrainPhyx, defaultShader);
-     terrainPhyx->Initialize(RigidBody::RigidBodyType::STATIC, BaseCollider::ColliderShape::MESH);
+    // terrainPhyx->transform.SetScale(glm::vec3(0.5f));
+    // GraphicsRender::GetInstance().AddModelAndShader(terrainPhyx, defaultShader);
+   //  terrainPhyx->Initialize(RigidBody::RigidBodyType::STATIC, BaseCollider::ColliderShape::MESH);
 
 }
 

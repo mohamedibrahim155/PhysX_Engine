@@ -76,6 +76,51 @@ void PhysXObject::Render()
 	}
 }
 
+void PhysXObject::Start()
+{
+}
+
+void PhysXObject::Update(float deltaTime)
+{
+}
+
+void PhysXObject::OnDestroy()
+{
+}
+
+void PhysXObject::OnTriggerEnter(PhysXObject* otherObject)
+{
+	std::cout << "On Trigger Enter" << std::endl;
+
+}
+
+void PhysXObject::OnTriggerStay(PhysXObject* otherObject)
+{
+	std::cout << "On Trigger stay" << std::endl;
+}
+
+void PhysXObject::OnTriggerExit(PhysXObject* otherObject)
+{
+	std::cout << "On Trigger Exit" << std::endl;
+
+}
+
+void PhysXObject::OnCollisionEnter(PhysXObject* otherObject)
+{
+	std::cout << "On Collision Enter" << std::endl;
+}
+
+void PhysXObject::OnCollisionStay(PhysXObject* otherObject)
+{
+	std::cout << "On Collision stay" << std::endl;
+}
+
+void PhysXObject::OnCollisionExit(PhysXObject* otherObject)
+{
+	std::cout << "On Collision Exit" << std::endl;
+
+}
+
 
 
 RigidBody* PhysXObject::GetRigidBody()
