@@ -1,6 +1,10 @@
-#include "TriggerEventCallback.h"
+#include "CollisionEventCallback.h"
 #include <iostream>
 #include "PhysXObject.h"
+#include "PhysXUtils.h"
+
+CollisionInfo CollisionEventCallback::collisionInfo;
+
 void CollisionEventCallback::onConstraintBreak(PxConstraintInfo* constraints, PxU32 count)
 {
     std::cout << "On Contraint break" << std::endl;
@@ -18,6 +22,7 @@ void CollisionEventCallback::onSleep(PxActor** actors, PxU32 count)
 
 void CollisionEventCallback::onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs)
 {
+    collisionInfo.listOfCollisionPoints.clear();
 
     std::vector<PxContactPairPoint> contactPoints;
 
@@ -35,8 +40,8 @@ void CollisionEventCallback::onContact(const PxContactPairHeader& pairHeader, co
 
             for (PxU32 j = 0; j < contactCount; j++)
             {
-                //gContactPositions.push_back(contactPoints[j].position);
-                //gContactImpulses.push_back(contactPoints[j].impulse);
+                collisionInfo.listOfCollisionPoints.push_back(PxVec3ToGLM(contactPoints[j].position));
+                collisionInfo.listOfCollisionNormals.push_back(PxVec3ToGLM(contactPoints[j].normal));
             }
         }
     }
@@ -48,8 +53,8 @@ void CollisionEventCallback::onContact(const PxContactPairHeader& pairHeader, co
         if (pair.flags & PxContactPairFlag::eACTOR_PAIR_HAS_FIRST_TOUCH)
 
         {
-            collisionObject->OnCollisionEnter(otherObject);
-            otherObject->OnCollisionEnter(collisionObject);
+            collisionObject->OnCollisionEnter(otherObject ,collisionInfo);
+            otherObject->OnCollisionEnter(collisionObject, collisionInfo);
         }
         else if (pair.flags & PxContactPairFlag::eACTOR_PAIR_LOST_TOUCH)
         {

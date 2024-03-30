@@ -1,5 +1,6 @@
 #pragma once
 #include <PxSimulationEventCallback.h>
+#include "CollisionInfo.h"
 using namespace physx;
 class CollisionEventCallback : public PxSimulationEventCallback 
 
@@ -20,5 +21,6 @@ public:
 
 	void onAdvance(const PxRigidBody* const* bodyBuffer, const PxTransform* poseBuffer, const PxU32 count) override;
 
+	static CollisionInfo collisionInfo;
 };
 

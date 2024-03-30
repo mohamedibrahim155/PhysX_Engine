@@ -4,7 +4,7 @@
 #include "PhysicsMaterial/PhysicsMaterial.h"
 #include <string>
 #include <vector>
-#include "TriggerEventCallback.h"
+#include "CollisionEventCallback.h"
 
 using namespace physx;
 

@@ -218,7 +218,7 @@
     <ClCompile Include="src\UnLitMaterial.cpp" />
     <ClCompile Include="src\ImGui\WindowDockingPanel.cpp" />
     <ClCompile Include="src\ImGui\ToolPanel.cpp" />
-    <ClCompile Include="src\PhysX\TriggerEventCallback.cpp" />
+    <ClCompile Include="src\PhysX\CollisionEventCallback.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
@@ -307,7 +307,7 @@
     <ClInclude Include="src\UnLitMaterial.h" />
     <ClInclude Include="src\ImGui\WindowDockingPanel.h" />
     <ClInclude Include="src\ImGui\ToolPanel.h" />
-    <ClInclude Include="src\PhysX\TriggerEventCallback.h" />
+    <ClInclude Include="src\PhysX\CollisionEventCallback.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\AnimationShader.frag" />

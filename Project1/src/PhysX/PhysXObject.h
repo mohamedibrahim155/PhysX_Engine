@@ -2,7 +2,7 @@
 #include "PxPhysicsAPI.h"
 #include "RigidBody.h"
 #include "../model.h"
-
+#include "CollisionInfo.h"
 using namespace physx;
 
 class PhysXObject : public Model
@@ -25,7 +25,7 @@ public:
 	virtual void OnTriggerStay(PhysXObject* otherObject);
 	virtual void OnTriggerExit(PhysXObject* otherObject);
 
-	virtual void OnCollisionEnter(PhysXObject* otherObject);
+	virtual void OnCollisionEnter(PhysXObject* otherObject, CollisionInfo& collisionInfo);
 	virtual void OnCollisionStay(PhysXObject* otherObject);
 	virtual void OnCollisionExit(PhysXObject* otherObject);
 
