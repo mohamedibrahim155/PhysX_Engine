@@ -43,7 +43,7 @@ void CollisionEventCallback::onContact(const PxContactPairHeader& pairHeader, co
 
     for (PxU32 i = 0; i < nbPairs; i++)
     {
-        PxContactPair pair = pairs[i];
+        const PxContactPair& pair = pairs[i];
 
         if (pair.flags & PxContactPairFlag::eACTOR_PAIR_HAS_FIRST_TOUCH)
 
@@ -69,10 +69,10 @@ void CollisionEventCallback::onTrigger(PxTriggerPair* pairs, PxU32 count)
     PhysXObject* otherActor = nullptr;
     for (PxU32 i = 0; i < count; i++) 
     {
-        const PxTriggerPair& pair = pairs[i];
+         PxTriggerPair& pair = pairs[i];
 
-       triggerActor = (PhysXObject*)pair.triggerActor->userData;
-       otherActor = (PhysXObject*)pair.otherActor->userData;
+       triggerActor = static_cast<PhysXObject*>(pair.triggerActor->userData);
+       otherActor   = static_cast<PhysXObject*>(pair.otherActor->userData);
 
         if (pair.status & PxPairFlag::eNOTIFY_TOUCH_FOUND) 
         {

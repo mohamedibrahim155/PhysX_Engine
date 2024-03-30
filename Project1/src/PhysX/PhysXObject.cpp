@@ -90,8 +90,9 @@ void PhysXObject::OnDestroy()
 
 void PhysXObject::OnTriggerEnter(PhysXObject* otherObject)
 {
-	std::cout << "On Trigger Enter" << std::endl;
+	std::cout << "On Trigger Enter with "  << otherObject->name << std::endl;
 
+	
 }
 
 void PhysXObject::OnTriggerStay(PhysXObject* otherObject)

@@ -219,13 +219,14 @@ void ApplicationRenderer::Start()
     
 
 
-     PhysXObject* physixObject = new PhysXObject();
+     /*PhysXObject* physixObject = new PhysXObject();
      physixObject->LoadModel("Models/DefaultCube/DefaultCube.fbx");
+     physixObject->name = "Cube";
      physixObject->transform.SetPosition(glm::vec3(0, 5, 0));
      physixObject->transform.SetRotation(glm::vec3(10, 0, 0));
      physixObject->transform.SetScale(glm::vec3(0.5f,0.25f,0.25f));
      GraphicsRender::GetInstance().AddModelAndShader(physixObject, defaultShader);
-     physixObject->Initialize(RigidBody::RigidBodyType::KINEMATIC, BaseCollider::ColliderShape::BOX);
+     physixObject->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::BOX);*/
      //physixObject->collider->SetCentreOffset(glm::vec3(0, 1, 0));
     // physixObject->rigidBody->SetGravity(false);
      //physixObject->rigidBody->SetKinematic(true);
@@ -238,27 +239,29 @@ void ApplicationRenderer::Start()
 
      PhysXObject* physixObject2 = new PhysXObject();
      physixObject2->LoadModel("Models/DefaultCube/DefaultCube.fbx");
-     physixObject2->transform.SetPosition(glm::vec3(0, 2, 0));
+     physixObject2->name = "Floor";
+     physixObject2->transform.SetPosition(glm::vec3(0, 0, 0));
      //physixObject2->transform.SetRotation(glm::vec3(0));
      physixObject2->transform.SetScale(glm::vec3(2, 0.1f, 2));
      GraphicsRender::GetInstance().AddModelAndShader(physixObject2, defaultShader);
      physixObject2->Initialize(RigidBody::RigidBodyType::STATIC, BaseCollider::ColliderShape::BOX);
 
-     PhysXObject* physixObject3 = new PhysXObject();
-     physixObject3->LoadModel("Models/DefaultSphere/DefaultSphere.fbx");
-     physixObject3->transform.SetPosition(glm::vec3(0, 10, 1));
-     physixObject3->transform.SetRotation(glm::vec3(0, 0, 0));
-    // physixObject->transform.SetScale(glm::vec3(0.5f, 0.25f, 0.25f));
-     GraphicsRender::GetInstance().AddModelAndShader(physixObject3, defaultShader);
-     physixObject3->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::CAPSULE);
-  /*   physixObject3->collider->AsCapsuleCollider()->SetRadius(0.5f);
-     physixObject3->collider->AsCapsuleCollider()->SetHalfLength(5);*/
+     PhysXObject* sphere = new PhysXObject();
+     sphere->LoadModel("Models/DefaultSphere/DefaultSphere.fbx");
+     sphere->name = "Sphere";
+     sphere->transform.SetPosition(glm::vec3(0, 10, 1));
+     sphere->transform.SetRotation(glm::vec3(0, 0, 0));
+     sphere->transform.SetScale(glm::vec3(0.5f));
+     GraphicsRender::GetInstance().AddModelAndShader(sphere, defaultShader);
+     sphere->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::SPHERE);
+  /*   sphere->collider->AsCapsuleCollider()->SetRadius(0.5f);
+     sphere->collider->AsCapsuleCollider()->SetHalfLength(5);*/
 
       PhysicsMaterial material;
      material.dynamicFriction = 2;
-     material.bounciness = 5;
-     physixObject3->collider->SetPhysicsMaterial(material);
-     physixObject3->collider->SetTriggerState(true);
+     material.bounciness = 2;
+     sphere->collider->SetPhysicsMaterial(material);
+     //sphere->collider->SetTriggerState(true);
 
     // PhysXObject* terrainPhyx = new PhysXObject();
     // terrainPhyx->LoadModel("Models/Terrain/Terrain.ply");
