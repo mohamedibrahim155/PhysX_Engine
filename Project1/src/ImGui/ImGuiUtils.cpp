@@ -1,8 +1,10 @@
 
 #include "ImGuiUtils.h"
 
-void DrawTransformVector3ImGui(std::string label, glm::vec3& values, float resetValue, float& columnWidth)
+bool DrawTransformVector3ImGui(std::string label, glm::vec3& values, float resetValue, float& columnWidth)
 {
+	bool initiated = false;
+
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2);
@@ -25,12 +27,13 @@ void DrawTransformVector3ImGui(std::string label, glm::vec3& values, float reset
 	if (ImGui::Button("X", buttonSize))
 	{
 		values.x = resetValue;
+		initiated = true;
 	}
 
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##X", &values.x, 0.1f, 0, 0, "%0.2f");
+	if(ImGui::DragFloat("##X", &values.x, 0.1f, 0, 0, "%0.2f")) { initiated = true; }
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -41,12 +44,13 @@ void DrawTransformVector3ImGui(std::string label, glm::vec3& values, float reset
 	if (ImGui::Button("Y", buttonSize))
 	{
 		values.y = resetValue;
+		initiated = true;
 	}
 	ImGui::PopStyleColor(3);
 
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##Y", &values.y, 0.1f, 0, 0, "%0.2f");
+	if (ImGui::DragFloat("##Y", &values.y, 0.1f, 0, 0, "%0.2f")) { initiated = true; }
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -56,11 +60,12 @@ void DrawTransformVector3ImGui(std::string label, glm::vec3& values, float reset
 	if (ImGui::Button("Z", buttonSize))
 	{
 		values.z = resetValue;
+		initiated = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##Z", &values.z, 0.1f, 0, 0, "%0.2f");
+	if(ImGui::DragFloat("##Z", &values.z, 0.1f, 0, 0, "%0.2f")) { initiated = true; }
 	ImGui::PopItemWidth();
 
 	ImGui::PopStyleVar();
@@ -68,6 +73,8 @@ void DrawTransformVector3ImGui(std::string label, glm::vec3& values, float reset
 	ImGui::Columns(1);
 
 	ImGui::PopID();
+
+	return initiated;
 }
 
 bool DrawTransformVector2ImGui(std::string label, glm::vec2& values, float resetValue, float& columnWidth)
@@ -176,8 +183,9 @@ bool DrawDragFloatImGui(std::string label, float& value, float speed, float min,
 	return initiated;
 }
 
-void DrawFloatImGui(std::string label, float& value)
+bool DrawFloatImGui(std::string label, float& value)
 {
+	bool isUpdated = false;
 
 	ImGui::PushID(label.c_str());
 
@@ -188,17 +196,19 @@ void DrawFloatImGui(std::string label, float& value)
 
 	if (ImGui::InputFloat(("###" + label).c_str(), &value, 0, 0, "%.2f"))
 	{
+		isUpdated = true;
 	}
 
 	ImGui::Columns(1);
 
 	ImGui::PopID();
 
+	return isUpdated;
 }
 
-void DrawBoolImGui(std::string label, bool& value)
+bool DrawBoolImGui(std::string label, bool& value)
 {
-
+	bool isUpdated = false;
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2);
@@ -208,12 +218,14 @@ void DrawBoolImGui(std::string label, bool& value)
 
 	if (ImGui::Checkbox(("###" + label).c_str(), &value))
 	{
+		isUpdated = true;
 	}
 
 	ImGui::Columns(1);
 
 	ImGui::PopID();
 
+	return isUpdated;
 }
 
 bool DrawIntImGui(std::string label, int& value)

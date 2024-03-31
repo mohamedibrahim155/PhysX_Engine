@@ -1,6 +1,7 @@
 #include "RigidBody.h"
 #include "PhysXEngine.h"
 #include "PhysXUtils.h"
+#include "../ImGui/ImGuiUtils.h"
 RigidBody::RigidBody()
 {
 	physics = PhysXEngine::GetInstance().GetPhysics();
@@ -41,8 +42,12 @@ void RigidBody::SetDrag(float drag)
 	
 }
 
-void RigidBody::SetMass(float mass)
+void RigidBody::SetMass(float _mass)
 {
+	mass = _mass;
+	if (rigidActor == nullptr) return;
+
+	if (rigidBodyType == RigidBodyType::DYNAMIC);
 	((PxRigidDynamic*)rigidActor)->setMass(mass);
 }
 
@@ -62,14 +67,46 @@ void RigidBody::SetVelocity(const glm::vec3& velocity)
 	AsDynamicRigidBody()->setLinearVelocity(GLMToPxVec3(velocity));
 }
 
-void RigidBody::SetPosition(glm::vec3 position)
+void RigidBody::DrawRigidProperties()
 {
-	PxTransform localTm(PxVec3(position.x, position.y, position.z));
-	pxTransform = localTm;
+	ImGui::NewLine();
+
+	if (!ImGui::TreeNodeEx("RigidBody Properties", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		return;
+	}
+
+	int currentType = (int)rigidBodyType;
+
+	ImGui::Text(("Rigidbody Type :" + type[currentType]).c_str());
+
+	if (rigidBodyType ==RigidBodyType::DYNAMIC)
+	{
+		if (DrawBoolImGui("useGravity", useGravity))
+		{
+			SetGravity(useGravity);
+			UpdateGravity(useGravity);
+		}
+		if (DrawBoolImGui("isKinematic", isKinematic))
+		{
+			SetKinematic(isKinematic);
+			UpdateKinematic(isKinematic);
+		}
+
+		if (DrawDragFloatImGui("Mass", mass))
+		{
+			SetMass(mass);
+		}
+
+	}
+
+	ImGui::TreePop();
 }
 
 void RigidBody::SetPositionFreezeContraints(Contraints& position)
 {
+	if (rigidActor == nullptr) return;
+
 	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
 	{
 		dynamicActor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_LINEAR_X, position.x);
@@ -80,6 +117,8 @@ void RigidBody::SetPositionFreezeContraints(Contraints& position)
 
 void RigidBody::SetRotationFreezeContraints(Contraints& rotation)
 {
+	if (rigidActor == nullptr) return;
+
 	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
 	{
 		dynamicActor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_ANGULAR_X, rotation.x);
@@ -90,6 +129,8 @@ void RigidBody::SetRotationFreezeContraints(Contraints& rotation)
 
 void RigidBody::UpdateGravity(bool gravity)
 {
+	if (rigidActor == nullptr) return;
+
 	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
 	{
 		dynamicActor->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, !(gravity));
@@ -103,10 +144,12 @@ void RigidBody::UpdateGravity(bool gravity)
 
 void RigidBody::UpdateKinematic(bool isKinematic)
 {
+	if (rigidActor == nullptr) return;
+
 	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
 	{
 		dynamicActor->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
-		if (!isKinematic)
+		if (!this->isKinematic)
 		{
 			dynamicActor->wakeUp();
 		}
@@ -137,8 +180,8 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 
 		rigidActor = physics->createRigidStatic(transform);
 		break;
-	case RigidBody::RigidBodyType::KINEMATIC:
-		rigidActor = physics->createRigidDynamic(transform);
+	//case RigidBody::RigidBodyType::KINEMATIC:
+	//	//rigidActor = physics->createRigidDynamic(transform);
 		
 	}
 
@@ -161,9 +204,6 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 		switch (rigidBodyType)
 		{
 		case RigidBody::RigidBodyType::DYNAMIC:
-			UpdateGravity(useGravity);
-			break;
-		case RigidBody::RigidBodyType::KINEMATIC:
 			UpdateGravity(useGravity);
 			UpdateKinematic(isKinematic);
 			break;

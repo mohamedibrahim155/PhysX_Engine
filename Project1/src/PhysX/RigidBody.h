@@ -27,20 +27,15 @@ public:
 
 	enum class RigidBodyType
 	{
-		DYNAMIC,
-		STATIC,
-		KINEMATIC
+		DYNAMIC = 0,
+		STATIC =1,
 	};
 	RigidBody();
 	~RigidBody();
 
-
 	PxRigidDynamic* AsDynamicRigidBody();
 	PxRigidStatic* AsStaticRigidBody();
 	PxRigidActor* GetPxRigidBody();
-
-	BaseCollider* collider;
-	RigidBodyType rigidBodyType;
 
 	void InitializeRigidBody(PhysXObject* object);
 	void SetRigidBodyType(RigidBodyType type); 
@@ -49,26 +44,33 @@ public:
 	void SetKinematic(bool isKinematic);
 	void SetGravity(bool useGravity);
 	void SetVelocity(const glm::vec3& velocity);
-	void SetPosition(glm::vec3 position);
-
+	void DrawRigidProperties();
 
 	bool IsRigidBodyIntialized() const { return isRigidBodyInitilized; };
+
+	BaseCollider* collider;
+	RigidBodyType rigidBodyType;
+
 private:
 
-	PxRigidActor* rigidActor;
-	PxPhysics* physics;
-	PxTransform pxTransform;
-	PhysXObject* physicsObject;
-	Transform* modelTransform;
+	PxRigidActor* rigidActor =  nullptr;
+	PxPhysics*    physics = nullptr;
+	PxTransform   pxTransform;
+	PhysXObject*  physicsObject =  nullptr;
+	Transform*    modelTransform = nullptr;
 
-	bool isKinematic = false;
-	bool useGravity = true;
-	bool isRigidBodyInitilized = false;
+	bool  isKinematic = false;
+	bool  useGravity = true;
+	bool  isRigidBodyInitilized = false;
+	float mass = 1;
+
 	void UpdateGravity(bool gravity);
 	void UpdateKinematic(bool isKinematic);
 
 	void SetPositionFreezeContraints(Contraints& position);
 	void SetRotationFreezeContraints(Contraints& rotation);
+
+	std::string type[2] = { "DYNAMIC", "STATIC" };
 
 };
 

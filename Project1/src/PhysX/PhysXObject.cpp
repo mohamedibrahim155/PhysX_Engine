@@ -58,8 +58,12 @@ void PhysXObject::DrawProperties()
 	Model::DrawProperties();
 
 	if (collider == nullptr)  return;
-
 	collider->DrawColliderProperties();
+
+	if (rigidBody == nullptr) return;
+	rigidBody->DrawRigidProperties();
+	
+
 }
 
 void PhysXObject::SceneDraw()
