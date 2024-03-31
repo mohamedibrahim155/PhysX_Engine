@@ -102,20 +102,31 @@ void RigidBody::DrawRigidProperties()
 
 		ImGui::Text("Freeze positions");
 
-		if (DrawBoolImGui("X-Pos", freezePosition.x) ||
-			DrawBoolImGui("Y-Pos", freezePosition.y) ||
-			DrawBoolImGui("Z-Pos", freezePosition.z))
+		if (ImGui::TreeNode("Constraints")) 
 		{
-			SetPositionFreezeContraints(freezePosition);
-		}
+			if (ImGui::TreeNode("Freeze positions")) 
+			{
+				if (DrawBoolImGui("X-Pos", freezePosition.x) ||
+					DrawBoolImGui("Y-Pos", freezePosition.y) ||
+					DrawBoolImGui("Z-Pos", freezePosition.z)) 
+				{
+					SetPositionFreezeContraints(freezePosition);
+				}
+				ImGui::TreePop();
+			}
 
-		ImGui::Text("Freeze Rotations");
+			if (ImGui::TreeNode("Freeze rotations")) 
+			{
+				if (DrawBoolImGui("X-Rot", freezeRotation.x) ||
+					DrawBoolImGui("Y-Rot", freezeRotation.y) ||
+					DrawBoolImGui("Z-Rot", freezeRotation.z))
+				{
+					SetRotationFreezeContraints(freezeRotation);
+				}
+				ImGui::TreePop();
+			}
 
-		if (DrawBoolImGui("X-Rot", freezeRotation.x) ||
-			DrawBoolImGui("Y-Rot", freezeRotation.y) ||
-			DrawBoolImGui("Z-Rot", freezeRotation.z))
-		{
-			SetRotationFreezeContraints(freezeRotation);
+			ImGui::TreePop(); 
 		}
 
 
