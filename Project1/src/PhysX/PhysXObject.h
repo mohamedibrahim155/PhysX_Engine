@@ -5,15 +5,7 @@
 #include "CollisionInfo.h"
 using namespace physx;
 
-struct Contraints
-{
-	Contraints() = default;
-	Contraints(bool x, bool y, bool z) : x(x), y(y), z(z) {};
 
-	bool x = false;
-	bool y = false;
-	bool z = false;
-};
 
 class PhysXObject : public Model
 {
@@ -40,6 +32,7 @@ public:
 	virtual void OnCollisionExit(PhysXObject* otherObject);
 
 	RigidBody* GetRigidBody();
+	glm::vec3 GetVelocity();
 
 	PxRigidActor* rigidActor = nullptr;
 	BaseCollider* collider;

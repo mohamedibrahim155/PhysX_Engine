@@ -68,6 +68,26 @@ void RigidBody::SetPosition(glm::vec3 position)
 	pxTransform = localTm;
 }
 
+void RigidBody::SetPositionFreezeContraints(Contraints& position)
+{
+	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
+	{
+		dynamicActor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_LINEAR_X, position.x);
+		dynamicActor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_LINEAR_Y, position.y);
+		dynamicActor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_LINEAR_Z, position.z);
+	}
+}
+
+void RigidBody::SetRotationFreezeContraints(Contraints& rotation)
+{
+	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
+	{
+		dynamicActor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_ANGULAR_X, rotation.x);
+		dynamicActor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y, rotation.y);
+		dynamicActor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z, rotation.z);
+	}
+}
+
 void RigidBody::UpdateGravity(bool gravity)
 {
 	if (PxRigidDynamic* dynamicActor = rigidActor->is<PxRigidDynamic>())
@@ -132,6 +152,8 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 
 		object->rigidActor = rigidActor;
 
+		SetPositionFreezeContraints(physicsObject->freezePosition);
+		SetRotationFreezeContraints(physicsObject->freezeRotation);
 
 		PhysXEngine::GetInstance().GetPhysicsScene()->addActor(*rigidActor);
 

@@ -12,6 +12,15 @@ using namespace physx;
 class PhysXObject;
 class Transform;
 
+struct Contraints
+{
+	Contraints() = default;
+	Contraints(bool x, bool y, bool z) : x(x), y(y), z(z) {};
+
+	bool x = false;
+	bool y = false;
+	bool z = false;
+};
 class RigidBody
 {
 public:
@@ -42,6 +51,7 @@ public:
 	void SetVelocity(const glm::vec3& velocity);
 	void SetPosition(glm::vec3 position);
 
+
 	bool IsRigidBodyIntialized() const { return isRigidBodyInitilized; };
 private:
 
@@ -56,5 +66,9 @@ private:
 	bool isRigidBodyInitilized = false;
 	void UpdateGravity(bool gravity);
 	void UpdateKinematic(bool isKinematic);
+
+	void SetPositionFreezeContraints(Contraints& position);
+	void SetRotationFreezeContraints(Contraints& rotation);
+
 };
 

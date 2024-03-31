@@ -1,5 +1,6 @@
 #include "PhysXObject.h"
 #include "PhysXEngine.h"
+#include "PhysXUtils.h"
 PhysXObject::PhysXObject()
 {
 }
@@ -123,5 +124,14 @@ void PhysXObject::OnCollisionExit(PhysXObject* otherObject)
 RigidBody* PhysXObject::GetRigidBody()
 {
 	return rigidBody;
+}
+
+glm::vec3 PhysXObject::GetVelocity()
+{
+	if (rigidBody->rigidBodyType == RigidBody::RigidBodyType::DYNAMIC)
+	{
+		return PxVec3ToGLM(((PxRigidDynamic*)rigidActor)->getLinearVelocity());
+	}
+	return glm::vec3(0);
 }
 
