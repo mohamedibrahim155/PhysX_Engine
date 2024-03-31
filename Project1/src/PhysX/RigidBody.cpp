@@ -98,6 +98,28 @@ void RigidBody::DrawRigidProperties()
 			SetMass(mass);
 		}
 
+		ImGui::Text("Contraints");
+
+		ImGui::Text("Freeze positions");
+
+		if (DrawBoolImGui("X-Pos", freezePosition.x) ||
+			DrawBoolImGui("Y-Pos", freezePosition.y) ||
+			DrawBoolImGui("Z-Pos", freezePosition.z))
+		{
+			SetPositionFreezeContraints(freezePosition);
+		}
+
+		ImGui::Text("Freeze Rotations");
+
+		if (DrawBoolImGui("X-Rot", freezeRotation.x) ||
+			DrawBoolImGui("Y-Rot", freezeRotation.y) ||
+			DrawBoolImGui("Z-Rot", freezeRotation.z))
+		{
+			SetRotationFreezeContraints(freezeRotation);
+		}
+
+
+
 	}
 
 	ImGui::TreePop();
@@ -195,8 +217,8 @@ void RigidBody::InitializeRigidBody(PhysXObject* object)
 
 		object->rigidActor = rigidActor;
 
-		SetPositionFreezeContraints(physicsObject->freezePosition);
-		SetRotationFreezeContraints(physicsObject->freezeRotation);
+		SetPositionFreezeContraints(freezePosition);
+		SetRotationFreezeContraints(freezeRotation);
 
 		PhysXEngine::GetInstance().GetPhysicsScene()->addActor(*rigidActor);
 

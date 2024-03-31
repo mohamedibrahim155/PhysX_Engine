@@ -227,7 +227,7 @@ void ApplicationRenderer::Start()
      cube->transform.SetScale(glm::vec3(0.5f,0.25f,0.25f));
      GraphicsRender::GetInstance().AddModelAndShader(cube, defaultShader);
      cube->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::BOX);
-     cube->freezeRotation = Contraints(true, true, false);
+     cube->rigidBody->freezeRotation = Contraints(true, true, false);
     // cube->rigidBody->SetGravity(false);
      //cube->rigidBody->SetKinematic(true);
     /* PhysicsMaterial material;
@@ -254,7 +254,7 @@ void ApplicationRenderer::Start()
      sphere->transform.SetScale(glm::vec3(0.5f));
      GraphicsRender::GetInstance().AddModelAndShader(sphere, defaultShader);
      sphere->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::CAPSULE);
-     sphere->freezeRotation = Contraints(true, false, true);
+     sphere->rigidBody->freezeRotation = Contraints(true, false, true);
   /*   sphere->collider->AsCapsuleCollider()->SetRadius(0.5f);
      sphere->collider->AsCapsuleCollider()->SetHalfLength(5);*/
 

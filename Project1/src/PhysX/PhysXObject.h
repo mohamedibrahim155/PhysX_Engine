@@ -38,9 +38,6 @@ public:
 	BaseCollider* collider;
 	RigidBody* rigidBody;
 
-	Contraints freezePosition;
-	Contraints freezeRotation;
-
 private:
 
 

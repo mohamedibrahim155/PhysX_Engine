@@ -51,6 +51,9 @@ public:
 	BaseCollider* collider;
 	RigidBodyType rigidBodyType;
 
+	Contraints freezePosition;
+	Contraints freezeRotation;
+
 private:
 
 	PxRigidActor* rigidActor =  nullptr;
@@ -63,6 +66,8 @@ private:
 	bool  useGravity = true;
 	bool  isRigidBodyInitilized = false;
 	float mass = 1;
+
+	
 
 	void UpdateGravity(bool gravity);
 	void UpdateKinematic(bool isKinematic);
