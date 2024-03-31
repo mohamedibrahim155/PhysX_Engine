@@ -66,14 +66,26 @@ PxBoxGeometry BoxCollider::CreateBoxGeometryFromAABB(const PxBounds3& aabb)
 
 void BoxCollider::DrawColliderProperties()
 {
+	ImGui::NewLine();
+
 	if (!ImGui::TreeNodeEx("Box Collider", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		return;
 	}
 
+	if (DrawBoolImGui("is Trigger", isTrigger))
+	{
+		SetTriggerState(isTrigger);
+	}
+
 	DrawTransformVector3ImGui("Offset Position", offsetPosition, 0, columnWidth);
 
-	DrawTransformVector3ImGui("Size", sizeExtents, 1, columnWidth);
+	
+
+	if (DrawTransformVector3ImGui("Size", sizeExtents, 1, columnWidth))
+	{
+		SetSize(sizeExtents);
+	}
 
 	ImGui::TreePop();
 }

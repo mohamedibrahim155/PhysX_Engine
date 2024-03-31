@@ -73,13 +73,24 @@ PxSphereGeometry SphereCollider::CreateSphereGeomentryFromAABB(const PxBounds3& 
 
 void SphereCollider::DrawColliderProperties()
 {
+	ImGui::NewLine();
+
 	if (!ImGui::TreeNodeEx("Sphere Collider", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		return;
 	}
+
+	if (DrawBoolImGui("is Trigger", isTrigger))
+	{
+		SetTriggerState(isTrigger);
+	}
+
 	DrawTransformVector3ImGui("Offset Position", offsetPosition, 0, columnWidth);
 
-	DrawDragFloatImGui("Radius", radius, 0.1f, 0.0f, 0);
+	if (DrawDragFloatImGui("Radius", radius, 0.1f))
+	{
+		SetRadius(radius);
+	}
 
 	ImGui::TreePop();
 }

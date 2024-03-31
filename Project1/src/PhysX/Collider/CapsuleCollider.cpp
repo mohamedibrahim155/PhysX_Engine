@@ -147,15 +147,28 @@ const char* CapsuleCollider::directionOptions[] = { "X Axis", "Y Axis", "Z Axis"
 
 void CapsuleCollider::DrawColliderProperties()
 {
+    ImGui::NewLine();
+
     if (!ImGui::TreeNodeEx("Capsule Collider", ImGuiTreeNodeFlags_DefaultOpen))
     {
         return;
     }
 
+    if (DrawBoolImGui("is Trigger", isTrigger))
+    {
+        SetTriggerState(isTrigger);
+    }
+
     DrawTransformVector3ImGui("Offset Position", offsetPosition, 0, columnWidth);
 
-    DrawDragFloatImGui("Radius", radius, 0.1f, 0, 0);
-    DrawDragFloatImGui("halfLength", halfHeight, 0.1f, 0, 0);
+    if (DrawDragFloatImGui("Radius", radius, 0.1f))
+    {
+        SetRadius(radius);
+    }
+    if (DrawDragFloatImGui("halfLength", halfHeight, 0.1f))
+    {
+        SetHalfLength(halfHeight);
+    }
 
     int directionIndex = static_cast<int>(direction);
     if (ImGui::Combo("Direction", &directionIndex, directionOptions, IM_ARRAYSIZE(directionOptions)))
