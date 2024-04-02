@@ -264,6 +264,11 @@ void PhysXEngine::InitializePhysXObjects()
 	isApplicationPlay = true;
 }
 
+std::vector<PhysXObject*> PhysXEngine::GetListOfPhysicsObjects() const
+{
+	return physicsObjects;
+}
+
 PxFilterFlags PhysXEngine::ContactReportFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, PxFilterObjectAttributes attributes1, PxFilterData filterData1, PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
 {
 	PX_UNUSED(attributes0);

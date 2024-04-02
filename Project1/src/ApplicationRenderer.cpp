@@ -1,6 +1,5 @@
 #include"ApplicationRenderer.h"
 
-
 ApplicationRenderer::ApplicationRenderer()
 {
     sceneViewcamera = new Camera();
@@ -245,8 +244,11 @@ void ApplicationRenderer::Start()
      floor->transform.SetScale(glm::vec3(2, 0.1f, 2));
      GraphicsRender::GetInstance().AddModelAndShader(floor, defaultShader);
      floor->Initialize(RigidBody::RigidBodyType::STATIC, BaseCollider::ColliderShape::BOX);
+     floor->entityLayer = Layer::DEFAULT;
 
-     PhysXObject* sphere = new PhysXObject();
+
+
+    /* PhysXObject* sphere = new PhysXObject();
      sphere->LoadModel("Models/DefaultSphere/DefaultSphere.fbx");
      sphere->name = "Sphere";
      sphere->transform.SetPosition(glm::vec3(0, 10, 1));
@@ -254,14 +256,14 @@ void ApplicationRenderer::Start()
      sphere->transform.SetScale(glm::vec3(0.5f));
      GraphicsRender::GetInstance().AddModelAndShader(sphere, defaultShader);
      sphere->Initialize(RigidBody::RigidBodyType::DYNAMIC, BaseCollider::ColliderShape::CAPSULE);
-     sphere->rigidBody->freezeRotation = Contraints(true, false, true);
+     sphere->rigidBody->freezeRotation = Contraints(true, false, true);*/
   /*   sphere->collider->AsCapsuleCollider()->SetRadius(0.5f);
      sphere->collider->AsCapsuleCollider()->SetHalfLength(5);*/
 
       PhysicsMaterial material;
      material.dynamicFriction = 2;
      material.bounciness = 0.2f;
-     sphere->collider->SetPhysicsMaterial(material);
+     //sphere->collider->SetPhysicsMaterial(material);
      //sphere->collider->SetTriggerState(true);
 
     // PhysXObject* terrainPhyx = new PhysXObject();

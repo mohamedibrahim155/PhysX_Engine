@@ -30,6 +30,7 @@ public:
 	PxScene* GetPhysicsScene() const;
 	PhysicsMaterial* GetDefaultPhysicsMaterial();
 	PxMaterial* GetPxPhysicsMaterial();
+	std::vector<PhysXObject*> GetListOfPhysicsObjects() const;
 
 	void InitializePhysX();
 	void ShutDown();

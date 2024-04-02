@@ -82,12 +82,12 @@ void RigidBody::DrawRigidProperties()
 
 	if (rigidBodyType ==RigidBodyType::DYNAMIC)
 	{
-		if (DrawBoolImGui("useGravity", useGravity))
+		if (DrawBoolImGui("useGravity", useGravity,200))
 		{
 			SetGravity(useGravity);
 			UpdateGravity(useGravity);
 		}
-		if (DrawBoolImGui("isKinematic", isKinematic))
+		if (DrawBoolImGui("isKinematic", isKinematic,200))
 		{
 			SetKinematic(isKinematic);
 			UpdateKinematic(isKinematic);
@@ -97,10 +97,6 @@ void RigidBody::DrawRigidProperties()
 		{
 			SetMass(mass);
 		}
-
-		ImGui::Text("Contraints");
-
-		ImGui::Text("Freeze positions");
 
 		if (ImGui::TreeNode("Constraints")) 
 		{

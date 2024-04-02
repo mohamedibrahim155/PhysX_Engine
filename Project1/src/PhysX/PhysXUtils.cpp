@@ -1,5 +1,6 @@
 #include "PhysXUtils.h"
-
+#include "PhysXEngine.h"
+#include "PhysXObject.h"
 glm::vec3 PxVec3ToGLM(const PxVec3& value)
 {
     return glm::vec3(value.x, value.y, value.z);
@@ -44,5 +45,41 @@ PxBounds3 CalculateAABB(std::vector<Vertex> vertices)
 	}
 
     return PxBounds3(min,max);
+}
+
+
+bool Physics::IsInLayer(const unsigned int& layer, const std::vector<unsigned int>& listOfLayers)
+{
+	for (const unsigned int& i : listOfLayers)
+	{
+		if (i == layer) return true;
+	}
+	return false;
+}
+
+bool Physics::rayCast(glm::vec3 rayOrigin, glm::vec3 direction, float maxDistance, RayCastHitInfo& rayInfo, const std::vector<unsigned int>& layerMask)
+{
+	for (PhysXObject* phys : PhysXEngine::GetInstance().GetListOfPhysicsObjects())
+	{
+		if (!IsInLayer(phys->entityLayer, layerMask)) continue;
+
+		PxVec3 origin = GLMToPxVec3(rayOrigin);
+		PxVec3 dir = GLMToPxVec3(direction);
+		PxGeomRaycastHit mLocalHit;
+		PxTransform pxTransform(GLMToPxVec3(phys->transform.position), GLMToPxQuat(phys->collider->GetRotation()));
+
+		if ((PxGeometryQuery::raycast(origin, dir, phys->collider->GetShape()->getGeometry(), pxTransform, maxDistance,
+			PxHitFlag::eDEFAULT| PxHitFlag::eANY_HIT , 1, &mLocalHit)))
+		{
+			rayInfo.physObject = phys;
+			rayInfo.point = PxVec3ToGLM(mLocalHit.position);
+			rayInfo.normal = PxVec3ToGLM(mLocalHit.normal);
+			rayInfo.distance = mLocalHit.distance;
+			rayInfo.faceID = mLocalHit.faceIndex;
+
+			return true;
+		}
+	}
+	return false;
 }
 

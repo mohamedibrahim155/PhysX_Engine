@@ -15,9 +15,9 @@ public:
 
 	void Initialize(RigidBody::RigidBodyType bodyType , BaseCollider::ColliderShape colliderShape);
 
-	void DrawProperties()override;
-	void SceneDraw()override;
-	void Render()override;
+	virtual void DrawProperties()override;
+	virtual void SceneDraw()override;
+	virtual void Render()override;
 
 	virtual void Start() override;
 	virtual void Update(float deltaTime) override;
@@ -31,12 +31,14 @@ public:
 	virtual void OnCollisionStay(PhysXObject* otherObject);
 	virtual void OnCollisionExit(PhysXObject* otherObject);
 
+	void SetVelocity(const glm::vec3& velocity);
+
 	RigidBody* GetRigidBody();
 	glm::vec3 GetVelocity();
 
 	PxRigidActor* rigidActor = nullptr;
-	BaseCollider* collider;
-	RigidBody* rigidBody;
+	BaseCollider* collider =  nullptr;
+	RigidBody* rigidBody = nullptr;
 
 private:
 

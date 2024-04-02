@@ -136,14 +136,14 @@ bool DrawTransformVector2ImGui(std::string label, glm::vec2& values, float reset
 	return initiated;
 }
 
-bool DrawDropDownImGui(std::string label, int& currentItem, const char* const* items, int size)
+bool DrawDropDownImGui(std::string label, int& currentItem, const char* const* items, int size, float columnWidth)
 {
 	bool initiated = false;
 
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2);
-	ImGui::SetColumnWidth(0, 150);
+	ImGui::SetColumnWidth(0, columnWidth);
 	ImGui::Text(label.c_str());
 	ImGui::NextColumn();
 
@@ -160,14 +160,14 @@ bool DrawDropDownImGui(std::string label, int& currentItem, const char* const* i
 
 }
 
-bool DrawDragFloatImGui(std::string label, float& value, float speed, float min, float max)
+bool DrawDragFloatImGui(std::string label, float& value, float speed, float min, float max, float columnWidth)
 {
 	bool initiated = false;
 
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2);
-	ImGui::SetColumnWidth(0, 150);
+	ImGui::SetColumnWidth(0, columnWidth);
 	ImGui::Text(label.c_str());
 	ImGui::NextColumn();
 
@@ -183,14 +183,14 @@ bool DrawDragFloatImGui(std::string label, float& value, float speed, float min,
 	return initiated;
 }
 
-bool DrawFloatImGui(std::string label, float& value)
+bool DrawFloatImGui(std::string label, float& value, float columnWidth)
 {
 	bool isUpdated = false;
 
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2);
-	ImGui::SetColumnWidth(0, 150);
+	ImGui::SetColumnWidth(0, columnWidth);
 	ImGui::Text(label.c_str());
 	ImGui::NextColumn();
 
@@ -206,13 +206,13 @@ bool DrawFloatImGui(std::string label, float& value)
 	return isUpdated;
 }
 
-bool DrawBoolImGui(std::string label, bool& value)
+bool DrawBoolImGui(std::string label, bool& value, float columnWidth)
 {
 	bool isUpdated = false;
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2);
-	ImGui::SetColumnWidth(0, 150);
+	ImGui::SetColumnWidth(0, columnWidth);
 	ImGui::Text(label.c_str());
 	ImGui::NextColumn();
 
@@ -228,14 +228,14 @@ bool DrawBoolImGui(std::string label, bool& value)
 	return isUpdated;
 }
 
-bool DrawIntImGui(std::string label, int& value)
+bool DrawIntImGui(std::string label, int& value, float columnWidth)
 {
 	bool initiated = false;
 
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2);
-	ImGui::SetColumnWidth(0, 150);
+	ImGui::SetColumnWidth(0, columnWidth);
 	ImGui::Text(label.c_str());
 	ImGui::NextColumn();
 

@@ -123,6 +123,14 @@ void PhysXObject::OnCollisionExit(PhysXObject* otherObject)
 	//std::cout << "On Collision Exit" << std::endl;
 }
 
+void PhysXObject::SetVelocity(const glm::vec3& velocity)
+{
+	if (rigidBody->rigidBodyType == RigidBody::RigidBodyType::DYNAMIC)
+	{
+		if(rigidActor)
+		(((PxRigidDynamic*)rigidActor)->setLinearVelocity(GLMToPxVec3(velocity)));
+	}
+}
 
 
 RigidBody* PhysXObject::GetRigidBody()
@@ -134,6 +142,7 @@ glm::vec3 PhysXObject::GetVelocity()
 {
 	if (rigidBody->rigidBodyType == RigidBody::RigidBodyType::DYNAMIC)
 	{
+		if (rigidActor)
 		return PxVec3ToGLM(((PxRigidDynamic*)rigidActor)->getLinearVelocity());
 	}
 	return glm::vec3(0);

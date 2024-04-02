@@ -1,7 +1,7 @@
 #pragma once
 #include "../Object.h"
 #include"../Transform.h"
-
+#include "../Layer.h"
 
 class EntityManager;
 class EditorLayout;
@@ -13,6 +13,8 @@ public:
 	std::string entityID;
 	std::string tag = "untagged";
 	std::string name = "EmptyGameObject";
+
+	unsigned int entityLayer = Layer::DEFAULT;
 
 	Transform transform;
 

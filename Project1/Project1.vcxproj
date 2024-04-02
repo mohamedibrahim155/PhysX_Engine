@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\PhysX\BallPhysics.cpp" />
     <ClCompile Include="src\PhysX\CollisionInfo.cpp" />
     <ClCompile Include="src\PhysX\Collider\CapsuleCollider.cpp" />
     <ClCompile Include="src\PhysX\Collider\MeshCollider.cpp" />
@@ -222,10 +223,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="src\PhysX\BallPhysics.h" />
     <ClInclude Include="src\PhysX\CollisionInfo.h" />
     <ClInclude Include="src\PhysX\Collider\CapsuleCollider.h" />
     <ClInclude Include="src\PhysX\Collider\MeshCollider.h" />
     <ClInclude Include="src\PhysX\Collider\SphereCollider.h" />
+    <ClInclude Include="src\Layer.h" />
     <ClInclude Include="src\PhysX\PhysXUtils.h" />
     <ClInclude Include="src\PhysX\PhysicsMaterial\PhysicsMaterial.h" />
     <ClInclude Include="src\PhysX\Collider\BoxCollider.h" />
