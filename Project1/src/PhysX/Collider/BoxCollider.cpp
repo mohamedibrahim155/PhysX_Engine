@@ -84,6 +84,9 @@ void BoxCollider::DrawColliderProperties()
 
 	if (DrawTransformVector3ImGui("Size", sizeExtents, 1, columnWidth))
 	{
+		if (sizeExtents.x < 0) sizeExtents.x = 0;
+		if (sizeExtents.y < 0) sizeExtents.y = 0;
+		if (sizeExtents.z < 0) sizeExtents.z = 0;
 		SetSize(sizeExtents);
 	}
 

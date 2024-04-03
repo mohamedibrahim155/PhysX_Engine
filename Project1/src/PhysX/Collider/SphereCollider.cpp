@@ -87,7 +87,7 @@ void SphereCollider::DrawColliderProperties()
 
 	DrawTransformVector3ImGui("Offset Position", offsetPosition, 0, columnWidth);
 
-	if (DrawDragFloatImGui("Radius", radius, 0.1f))
+	if (DrawDragFloatImGui("Radius", radius, 0.1f, 0.01f))
 	{
 		SetRadius(radius);
 	}

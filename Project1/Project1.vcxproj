@@ -75,7 +75,7 @@
     <IncludePath>$(SolutionDir)Dependencies\glad\include;$(SolutionDir)Project1\Extern\imGui;$(SolutionDir)Dependencies\PhysX\include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)Dependencies\glad\include;$(SolutionDir)Project1\Extern\imGui</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies\glad\include;$(SolutionDir)Project1\Extern\imGui;$(SolutionDir)Dependencies\PhysX\include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
