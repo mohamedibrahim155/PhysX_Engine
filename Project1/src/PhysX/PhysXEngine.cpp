@@ -9,7 +9,6 @@ PhysXEngine::PhysXEngine()
 
 PhysXEngine::~PhysXEngine()
 {
-	//ShutDown();
 }
 
 PhysXEngine& PhysXEngine::GetInstance()
@@ -69,6 +68,9 @@ void PhysXEngine::InitializePhysX()
 
 void PhysXEngine::ShutDown()
 {
+	
+	physicsObjects.clear();
+
 	PX_RELEASE(scene);
 	PX_RELEASE(dispatcher);
 	PX_RELEASE(physics);
@@ -219,6 +221,39 @@ void PhysXEngine::UpdatePhysicsRenders()
 
 			position /= nbShapes;
 			rotation /= nbShapes;
+
+
+			
+
+			if (physObject->rigidBody->freezeRotation.x)
+			{
+				rotation.x = physObject->transform.rotation.x;
+			}
+			if (physObject->rigidBody->freezeRotation.y)
+			{
+				rotation.y = physObject->transform.rotation.y;
+			}
+			if (physObject->rigidBody->freezeRotation.z)
+			{
+				rotation.z = physObject->transform.rotation.z;
+			}
+			if (physObject->rigidBody->freezePosition.x)
+			{
+				position.x = physObject->transform.position.x;
+			}
+
+			if (physObject->rigidBody->freezePosition.y)
+			{
+				position.y = physObject->transform.position.y;
+
+			}
+
+			if (physObject->rigidBody->freezePosition.z)
+			{
+				position.z = physObject->transform.position.z;
+
+			}
+
 
 			physObject->transform.SetPosition(position - physObject->collider->GetOffsetPosition());
 			physObject->transform.SetRotation(rotation);

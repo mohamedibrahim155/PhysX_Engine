@@ -16,10 +16,10 @@ PhysXObject::~PhysXObject()
 		delete collider;
 	}
 
-	if (rigidActor)
+	/*if (rigidActor)
 	{
 		rigidActor->release();
-	}
+	}*/
 }
 
 void PhysXObject::Initialize(RigidBody::RigidBodyType bodyType, BaseCollider::ColliderShape colliderShape)

@@ -158,7 +158,6 @@ void GraphicsRender::Draw()
 		GLCALL(glStencilFunc(GL_ALWAYS, 0, 0xFF));
 	}
 
-	EntityManager::GetInstance().Render();
 }
 
 void GraphicsRender::Clear()
